@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/oasis?serverTimezone=CTT&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/iot?serverTimezone=CTT&characterEncoding=UTF-8
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
