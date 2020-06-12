@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+
+    <!--     google fonts-->
+    <link
+            href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700&display=swap"
+            rel="stylesheet"
+    >
+
+    <!-- my css -->
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/css/paperdetail.css">
+    <link rel="stylesheet" type="text/css" href="/css/echartdetails.css">
+
+    <!-- jquery -->
+    <script src="/js/jquery.js"></script>
+
+    <!-- Bootstrap 核心 JavaScript 文件 -->
+    <script src="/js/bootstrap.bundle.min.js"></script>
+
+    <!-- 引入js脚本文件 -->
+    <script src="/js/request.js"></script>
+    <script src="/js/echarts.js"></script>
+    <script src="/js/echarts-wordcloud.min.js"></script>
+    <script src="/js/topiccluster.js"></script>
+<!--    <script src="/js/npmdepgraph.min10.json"></script>-->
+
+
+    <!--    fa Icons-->
+    <script src="/js/all.js"></script>
+
+    <title>topic cluster</title>
+</head>
+<body>
+<!-- header section -->
+<div class="header fixed-top">
+    <div class="container">
+        <div class="logo_menu">
+            <div class="logoDiv">
+                <a href="/" title="OASIS"><i class="far fa-angry fa-2x" style="margin-right:15px;"></i>OASIS</a>
+            </div>
+            <ul class="headermenuList">
+                <li><a href="/" title="home">HOME</a></li>
+                <li><a href="/topiccluster" title="keyword">KEYWORD</a></li>
+                <li><a href="/ranking" title="ranking">RANKING</a></li>
+                <li><a href="/statistics" title="statistics">STATISTICS</a></li>
+                <li><a href="/upload" title="upload">UPLOAD</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- header section -->
+
+<!-- banner section -->
+<div class="row jumbotron jumbotron-fluid" id="main">
+    <div  class="col-sm-9">
+        <div id="graph-details" class="graph-div bg-main">
+
+        </div>
+    </div>
+
+    <div  class="col-sm-3 bg-side">
+        <div class="detail-card">
+            <a class="detail-card-title" id="node-link" href="">Details</a>
+            <hr style="background-color:#F1FAEE !important; height: 2px;width:100%;border: none;">
+            <p class="detail-card-name" id="node-name"></p>
+            <p class="detail-card-name" id="cluster-name"></p>
+
+        </div>
+    </div>
+</div>
+<!-- banner section -->
+
+<!-- footer section -->
+<footer class="footer text-center">
+    <div class="smallFooter">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col align-items-center">
+                    <p>Copyright © 2020 <a href="http://212.129.149.40/171840535_happyddl/oasis" target="_blank" class="trans">happyDDL</a> | All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- footer section -->
+</body>
+</html>
+

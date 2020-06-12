@@ -1,0 +1,46 @@
+.graph-div{
+    height: 936px;
+    width: 100%;
+}
+.header .logoDiv a:hover {
+    color: #E63946;
+}
+a{
+    color: #F1FAEE;
+}
+a:hover{
+    color: #E63946;
+}
+.detail-card{
+    border-style: solid;
+    padding: 10px;
+    border-color: #F1FAEE !important;
+    border-radius: 3px;
+    margin-top: 200px;
+    margin-left: 10px;
+    margin-right: 10px;
+    /*height: 300px;*/
+}
+.bg-main{
+    background-color: #F1FAEE !important;
+}
+.bg-side{
+    background-color: #A8DADC !important;
+}
+.detail-card-name{
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 40px;
+    letter-spacing:1px;
+}
+.detail-card-others{
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+}
+.detail-card-title{
+    font-weight: 900;
+    font-size: 35px;
+    line-height: 35px;
+    letter-spacing:2px;
+}

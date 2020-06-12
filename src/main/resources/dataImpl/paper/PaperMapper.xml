@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seciii.oasis.data.paper.PaperMapper">
+
+    <select id="selectPaperByPid" resultMap="Paper">
+        select * from paper where pid = #{pid}
+    </select>
+
+    <select id="selectByIidPid" resultType="int">
+        select count(*) from institutionpaper where iid = #{iid} and pid = #{pid}
+    </select>
+
+    <select id="selectPaperByDoi" resultMap="Paper">
+        select * from paper where doi = #{doi}
+    </select>
+
+    <select id="selectPaperPidByAid" resultType="int">
+        select pid from authorpaper where aid = #{aid} limit #{beginnum}, 10
+    </select>
+
+    <select id="selectPaperPidByIid" resultType="int">
+        select pid from institutionpaper where iid = #{iid} limit #{beginnum}, 10
+    </select>
+
+    <select id="selectPaperPidByKid" resultType="int">
+        select pid from keywordpaper where kid = #{kid} limit #{beginnum}, 10
+    </select>
+
+    <select id="selectPaperByTitle" resultMap="Paper">
+        select * from paper where doctitle like concat('%', #{doctitle}, '%') limit #{beginnum}, 10
+    </select>
+
+    <select id="selectPaperByYear" resultMap="Paper">
+        select * from paper where pubyear <![CDATA[ >= ]]> #{startyear} and pubyear <![CDATA[ <= ]]> #{endyear} limit #{beginnum}, 10
+    </select>
+
+    <select id="selectPaperByPubTitle" resultMap="Paper">
+        select * from paper where pubtitle like concat('%', #{pubtitle}, '%') limit #{beginnum}, 10
+    </select>
+
+    <select id="combineSelect" resultMap="Paper">
+        select distinct * from paper where
+        pid is not null
+            and doctitle like concat('%', #{doctitle}, '%')
+
+            and pubyear <![CDATA[ >= ]]> #{startyear} and pubyear <![CDATA[ <= ]]> #{endyear}
+
+            and doi like concat('%', #{doi}, '%')
+
+            and pubtitle like concat('%', #{pubtitle}, '%')
+
+            and
+            <foreach collection="authorList" item="authorName" open="(" close=")" separator="and">
+                authors like concat('%', #{authorName}, '%')
+            </foreach>
+
+            and
+            <foreach collection="keywordList" item="keyName" open="(" close=")" separator="and">
+                keywords like concat('%', #{keyName}, '%')
+            </foreach>
+
+        and
+        <foreach collection="institutionList" item="institutionName" open="(" close=")" separator="and">
+            institutions like concat('%', #{institutionName}, '%')
+        </foreach>
+
+        limit #{beginnum}, 10
+    </select>
+
+    <insert id="insertPaper" parameterType="com.seciii.oasis.po.Paper"
+            useGeneratedKeys="true" keyProperty="pid" keyColumn="pid">
+        insert into paper(doctitle, authors, institutions, pubtitle, datx,
+                          pubyear, volume, issue, startpage, endpage, abstract, issn, isbns, doi,
+                          fundinfo, pdflink, keywords, ieeeterms, inspeccterms, inspecnterms,
+                          meshterms, articlecite, reference, license, onlinedate, issuedate,
+                          meetingdate, publisher, docidentifier)
+        values(#{doctitle}, #{authors}, #{institutions}, #{pubtitle}, #{datx},
+                            #{pubyear}, #{volume}, #{issue}, #{startpage}, #{endpage}, #{abstracts},
+            #{issn}, #{isbns}, #{doi}, #{fundinfo}, #{pdflink}, #{keywords}, #{ieeeterms},
+            #{inspeccterms}, #{inspecnterms}, #{meshterms}, #{articlecite}, #{reference},
+               #{license}, #{onlinedate}, #{issuedate}, #{meetingdate}, #{publisher}, #{docidentifier})
+    </insert>
+
+
+    <resultMap id="Paper" type="com.seciii.oasis.po.Paper">
+        <result column="pid" property="pid"></result>
+        <result column="doctitle" property="doctitle"></result>
+        <result column="authors" property="authors"></result>
+        <result column="institutions" property="institutions"></result>
+        <result column="pubtitle" property="pubtitle"></result>
+        <result column="datx" property="datx"></result>
+        <result column="pubyear" property="pubyear"></result>
+        <result column="volume" property="volume"></result>
+        <result column="issue" property="issue"></result>
+        <result column="startpage" property="startpage"></result>
+        <result column="endpage" property="endpage"></result>
+        <result column="abstract" property="abstracts"></result>
+        <result column="issn" property="issn"></result>
+        <result column="isbns" property="isbns"></result>
+        <result column="doi" property="doi"></result>
+        <result column="fundinfo" property="fundinfo"></result>
+        <result column="pdflink" property="pdflink"></result>
+        <result column="keywords" property="keywords"></result>
+        <result column="ieeeterms" property="ieeeterms"></result>
+        <result column="inspeccterms" property="inspeccterms"></result>
+        <result column="inspecnterms" property="inspecnterms"></result>
+        <result column="meshterms" property="meshterms"></result>
+        <result column="articlecite" property="articlecite"></result>
+        <result column="reference" property="reference"></result>
+        <result column="license" property="license"></result>
+        <result column="onlinedate" property="onlinedate"></result>
+        <result column="issuedate" property="issuedate"></result>
+        <result column="meetingdate" property="meetingdate"></result>
+        <result column="publisher" property="publisher"></result>
+        <result column="docidentifier" property="docidentifier"></result>
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seciii.oasis.data.paper.InstitutionMapper">
+    <insert id="insertInstitution" parameterType="com.seciii.oasis.po.Institution"
+            useGeneratedKeys="true" keyProperty="iid" keyColumn="iid">
+        insert into institution(iname, activity, paperamount, papercited)
+        values(#{iname}, #{activity}, #{paperamount}, #{papercited})
+    </insert>
+
+    <insert id="insertIidPid" >
+        insert into institutionpaper(iid,pid)
+        values(#{iid},#{pid})
+    </insert>
+
+    <update id="updateInstitution" parameterType="com.seciii.oasis.po.Institution">
+        update institution set paperamount=#{paperamount}, papercited=#{papercited}, activity=#{activity}
+        where iid=#{iid}
+    </update>
+
+    <select id="selectInstitutionByIid" resultMap="Institution">
+        select * from institution where iid = #{iid}
+    </select>
+
+    <select id="selectInstitutionByIname" resultMap="Institution">
+        select * from institution where iname like concat('%', #{iname}, '%') order by activity desc
+    </select>
+
+    <select id="selectInstitutionByExactName" resultMap="Institution">
+        select * from institution where iname = #{iname}
+    </select>
+
+    <select id="selectIidByExactName" resultType="int">
+        select iid from institution where iname=#{iname}
+    </select>
+
+    <select id="selectIidByPid" resultType="int">
+        select iid from institutionpaper
+        where pid=#{pid}
+    </select>
+
+    <resultMap id="Institution" type="com.seciii.oasis.po.Institution">
+        <id column="iid" property="iid"></id>
+        <result column="iname" property="iname"></result>
+    </resultMap>
+
+</mapper>

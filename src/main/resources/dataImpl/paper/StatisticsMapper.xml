@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seciii.oasis.data.statistics.StatisticsMapper">
+    <select id="selectTopRefPaper" resultMap="Paper">
+        select * from paper order by articlecite desc limit 10
+    </select>
+
+    <select id="selectTopPaperCountInstitutionIid" resultMap="InstitutionCount">
+        select iid, count(*) as count from institutionpaper group by iid order by count desc limit 11
+    </select>
+
+    <resultMap id="Paper" type="com.seciii.oasis.po.Paper">
+        <result column="abstract" property="abstracts"></result>
+    </resultMap>
+    <resultMap id="InstitutionCount" type="com.seciii.oasis.po.InstitutionCount">
+    </resultMap>
+
+</mapper>

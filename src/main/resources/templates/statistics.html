@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+
+    <!--     google fonts-->
+    <link
+            href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700&display=swap"
+            rel="stylesheet"
+    >
+
+    <!-- my css -->
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/css/statistics.css">
+    <link rel="stylesheet" type="text/css" href="/css/input.css">
+    <link rel="stylesheet" type="text/css" href="/css/paperdetail.css">
+
+
+    <!-- jquery -->
+    <script src="/js/jquery.js"></script>
+
+
+    <!-- Bootstrap 核心 JavaScript 文件 -->
+    <script src="/js/bootstrap.bundle.min.js"></script>
+
+    <!-- 引入js脚本文件 -->
+    <script src="/js/request.js"></script>
+    <script src="/js/statistics.js"></script>
+
+    <!--    fa Icons-->
+    <script src="/js/all.js"></script>
+
+    <title>index</title>
+</head>
+<body class="text-center">
+<!-- header section -->
+<header class="header fixed-top">
+    <div class="container">
+        <div class="logo_menu">
+            <div class="logoDiv">
+                <a href="/" title="OASIS"><i class="far fa-angry fa-2x" style="margin-right:15px;"></i>OASIS</a>
+            </div>
+            <ul class="headermenuList">
+                <li><a href="/" title="home">HOME</a></li>
+                <li><a href="/topiccluster" title="keyword">KEYWORD</a></li>
+                <li><a href="/ranking" title="ranking">RANKING</a></li>
+                <li><a href="/statistics" title="statistics">STATISTICS</a></li>
+                <li><a href="/upload" title="upload">UPLOAD</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<!-- header section -->
+
+<!-- banner section -->
+<div class="row jumbotron jumbotron-fluid" id="main">
+    <div id="paper-details" class="col-sm-12">
+        <div class="bg-centre h-100">
+            <br>
+            <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-10">
+                    <div class="detail-list">
+                        <p  class=" px-4 py-2 trend-title">
+                            KEYWORD TREND
+                                <select class="select-button selector border-right-0 btn btn-light" aria-label="content type dropdown">
+                            <option value="2020">2020</option>
+                            <option value="2019">2019</option>
+                            <option value="2018">2018</option>
+                        </select>
+                        </p>
+                        <table class=" trend-table">
+                            <tr>
+                                <th style="width:10%">NO.</th>
+                                <th style="width:70%">KEYWORD</th>
+                                <th style="width:10%">&nbsp;</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td ><a href="/keyword?kid=2628">software testing</a> </td>
+                                <td><i class="fas fa-arrow-up"></i></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td ><a href="/keyword?kid=2628">software testing</a> </td>
+                                <td><i class="fas fa-arrow-down"></i></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td ><a href="/keyword?kid=2628">software testing</a> </td>
+                                <td><i class="fas fa-minus"></i></td>
+                            </tr>
+                        </table>
+                        <br>
+                    </div>
+                </div>
+                <div class="col-sm-1"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="detail-list">
+                        <h4  class=" px-4 py-2 statis-title">
+                            TOP 10 ACTIVE PAPER
+                            <hr>
+                        </h4>
+                        <ul id="statistics1" class="list-group">
+                        </ul>
+                    </div>
+                </div>
+                <div  class="col-sm-6">
+                    <div class="detail-list">
+                        <h4  class=" px-4 py-2 statis-title" >
+                            TOP 10 ACTIVE INSTITUTION
+                            <hr>
+                        </h4>
+                        <ul id="statistics2" class="list-group">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- banner section -->
+
+<!-- footer section -->
+<footer class="footer text-center">
+    <div class="smallFooter">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col align-items-center">
+                    <!--                    <p>Our company is a real example for all existing organizations in the world</p>-->
+                    <p>Copyright © 2020 <a href="http://212.129.149.40/171840535_happyddl/oasis" target="_blank" class="trans">happyDDL</a> | All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- footer section -->
+</body>
+</html>

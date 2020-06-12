@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seciii.oasis.data.conference.ConferenceDetailMapper">
+
+    <insert id="insertConference" parameterType="com.seciii.oasis.po.Conference"
+            useGeneratedKeys="true" keyProperty="cid" keyColumn="cid">
+        insert into conference(cname, paperamount)
+        values(#{cname}, #{paperamount})
+    </insert>
+
+    <insert id="insertCidPid" >
+        insert into conferencepaper(cid,pid)
+        values(#{cid},#{pid})
+    </insert>
+
+    <select id="selectConferenceByName" resultMap="Conference">
+        select * from conference where cname = #{cname} order by paperamount desc
+    </select>
+
+    <select id="selectConferenceByAlikeName" resultMap="Conference">
+        select * from conference where cname like concat('%', #{cname}, '%') order by paperamount desc
+    </select>
+
+    <select id="selectConferenceByCid" resultMap="Conference">
+        select * from conference where cid = #{cid}
+    </select>
+
+    <update id="updateConference" parameterType="com.seciii.oasis.po.Conference">
+        update conference set cname = #{cname}, paperamount = #{paperamount} where cid = #{cid}
+    </update>
+
+    <select id="searchPaperByCid" resultType="int">
+        select pid from conferencepaper where cid = #{cid}
+    </select>
+
+    <select id="searchAuthorByCid" resultType="int">
+        select distinct aid from authorpaper
+        where pid in
+              (select pid from conferencepaper where cid = #{cid})
+    </select>
+
+    <select id="searchInstitutionByCid" resultType="int">
+        select distinct iid from institutionpaper
+        where pid in
+              (select pid from conferencepaper where cid = #{cid})
+    </select>
+
+    <select id="searchKeywordByCid" resultType="int">
+        select distinct kid from keywordpaper
+        where pid in
+              (select pid from conferencepaper where cid = #{cid})
+    </select>
+
+    <select id="selectCidByPid" resultType="int">
+        select cid from conferencepaper where pid=#{pid}
+    </select>
+
+
+    <resultMap id="Conference" type="com.seciii.oasis.po.Conference">
+        <id column="cid" property="cid"></id>
+        <result column="cname" property="cname"></result>
+        <result column="paperamount" property="paperamount"></result>
+    </resultMap>
+
+</mapper>
