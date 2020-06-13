@@ -1,10 +1,11 @@
 package com.seciii.oasis.bl.datasource;
 
+import com.seciii.oasis.vo.DataSourceForm;
 import com.seciii.oasis.vo.ResponseVO;
 
 public interface DataSourceService {
 
-    ResponseVO addDataSource(int pid,int month);
+    ResponseVO addDataSource(DataSourceForm dataSourceForm);
 
     ResponseVO updateDataSource(int did,int month);
 

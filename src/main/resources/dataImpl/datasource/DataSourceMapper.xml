@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seciii.oasis.data.DataSource.DataSourceMapper">
+
+    <resultMap id="DataSource" type="com.seciii.oasis.po.DataSource">
+        <id column="did" jdbcType="INTEGER" property="did"/>
+        <result column="pid" jdbcType="INTEGER" property="pid"/>
+        <result column="storage_cycle" jdbcType="INTEGER" property="month"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+    </resultMap>
+
+    <insert id="insertDataSource" keyColumn="did" keyProperty="did"
+            parameterType="com.seciii.oasis.po.DataSource" useGeneratedKeys="true">
+        insert into data_source (pid, storage_cycle, start_time, status)
+        values (#{pid,jdbcType=INTEGER}, #{month,jdbcType=INTEGER}, CURRENT_TIMESTAMP(), #{status,jdbcType=INTEGER})
+    </insert>
+
+
+    <select id="getDataSourceById" resultMap="DataSource">
+        select * from data_source where did=#{did}
+    </select>
+
+    <select id="getUsingDataSourceByPid" resultMap="DataSource">
+        select * from data_source where pid=#{pid} and status=0
+    </select>
+
+
+</mapper>

@@ -27,8 +27,9 @@ DROP TABLE IF EXISTS `data_source`;
 CREATE TABLE `data_source`  (
   `did` int(11) NOT NULL AUTO_INCREMENT COMMENT '数据源id',
   `pid` int(11) NOT NULL COMMENT '产品id',
-  `storage_cycle` int(255) NOT NULL DEFAULT 0 COMMENT '存储周期',
+  `storage_cycle` int(11) NOT NULL DEFAULT 0 COMMENT '存储周期，按月存储',
   `start_time` timestamp NOT NULL COMMENT '创建时间',
+  `status` int(3) NOT NULL DEFAULT 0 COMMENT '状态，默认0是存储中，1是已结束，2是已停止',
   PRIMARY KEY (`did`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic ;
 

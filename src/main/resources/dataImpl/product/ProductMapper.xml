@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seciii.oasis.data.Product.ProductMapper">
+
+    <resultMap id="Product" type="com.seciii.oasis.po.Product">
+        <id column="pid" jdbcType="INTEGER" property="pid"/>
+        <result column="pname" jdbcType="VARCHAR" property="pname"/>
+        <result column="node_type" jdbcType="INTEGER" property="nodeType"/>
+        <result column="connect_method" jdbcType="INTEGER" property="connectMethod"/>
+        <result column="data_format" jdbcType="INTEGER" property="dataFormat"/>
+        <result column="verification_method" jdbcType="INTEGER" property="verificationMethod"/>
+        <result column="product_description" jdbcType="VARCHAR" property="productDescription"/>
+    </resultMap>
+
+    <select id="getProductById" resultMap="Product">
+        select * from product where pid=#{pid}
+    </select>
+
+
+</mapper>
