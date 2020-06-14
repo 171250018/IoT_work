@@ -77,7 +77,12 @@ public class DataSourceServiceImpl implements DataSourceService {
 
     @Override
     public ResponseVO deleteDataSource(int did){
-        return ResponseVO.buildSuccess();
+        try {
+            dataSourceMapper.deleteDataSource(did);
+            return ResponseVO.buildSuccess();
+        }catch (Exception e){
+            return ResponseVO.buildFailure("删除失败");
+        }
     }
 
     /**
@@ -87,8 +92,19 @@ public class DataSourceServiceImpl implements DataSourceService {
      */
 
     @Override
-    public ResponseVO searchDataSourceByPname(String pname){
-        return ResponseVO.buildSuccess();
+    public ResponseVO searchDataSourceByPname(String pname,int page){
+        List<DataSource> dataSourceList=new ArrayList<DataSource>();
+        dataSourceList=dataSourceMapper.searchDataSourceByPname(pname,(page-1)*10);
+        List<DataSourceVO> res=new ArrayList<DataSourceVO>();
+        if(dataSourceList==null||dataSourceList.size()==0){
+            return ResponseVO.buildFailure("没有找到符合条件的结果");
+        }
+        else{
+            for(DataSource d:dataSourceList){
+                res.add(DataSource2VO(d));
+            }
+        }
+        return ResponseVO.buildSuccess(res);
     }
 
     /**
@@ -99,7 +115,21 @@ public class DataSourceServiceImpl implements DataSourceService {
 
     @Override
     public ResponseVO getDataSourceById(int did){
-        return ResponseVO.buildSuccess();
+        DataSource dataSource=dataSourceMapper.getDataSourceById(did);
+        if(dataSource==null){
+            return ResponseVO.buildFailure("该数据源不存在");
+        }
+        return ResponseVO.buildSuccess(DataSource2VO(dataSource));
+    }
+
+    @Override
+    public ResponseVO getAllDataSource(int page){
+        List<DataSource> dataSourceList=dataSourceMapper.selectAllDataBase((page-1)*10);
+        List<DataSourceVO> res=new ArrayList<DataSourceVO>();
+        for(DataSource d:dataSourceList){
+            res.add(DataSource2VO(d));
+        }
+        return ResponseVO.buildSuccess(res);
     }
 
     private DataSourceVO DataSource2VO(DataSource dataSource){

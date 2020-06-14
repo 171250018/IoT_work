@@ -25,5 +25,17 @@
         select * from data_source where pid=#{pid} and status=0
     </select>
 
+    <delete id="deleteDataSource">
+        delete from data_source where did=#{did}
+    </delete>
+
+    <select id="searchDataSourceByPname" resultMap="DataSource">
+        select * from data_source where pid in (select pid from product where pname like concat('%',#{pname},'%')) limit #{begin},10
+    </select>
+
+    <select id="selectAllDataBase" resultMap="DataSource">
+        select * from data_source limit #{begin},10
+    </select>
+
 
 </mapper>

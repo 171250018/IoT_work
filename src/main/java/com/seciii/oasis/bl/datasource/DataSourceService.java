@@ -11,8 +11,10 @@ public interface DataSourceService {
 
     ResponseVO deleteDataSource(int did);
 
-    ResponseVO searchDataSourceByPname(String pname);
+    ResponseVO searchDataSourceByPname(String pname,int page);
 
     ResponseVO getDataSourceById(int did);
+
+    ResponseVO getAllDataSource(int page);
 
 }

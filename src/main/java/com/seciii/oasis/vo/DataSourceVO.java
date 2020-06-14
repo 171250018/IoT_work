@@ -62,15 +62,4 @@ public class DataSourceVO {
         this.status = status;
     }
 
-
-    /*
-    public DataSourceVO(Author author){
-        this.aid = author.getAid();
-        this.aname = author.getAname();
-        this.paperCount = author.getPaperamount();
-        this.paperCited = author.getPapercited();
-        this.activity = author.getActivity();
-    }
-
-     */
 }

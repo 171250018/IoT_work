@@ -31,4 +31,24 @@ public class DataSourceController {
         return dataSourceService.updateDataSource(did,month);
     }
 
+    @RequestMapping(value = "/deleteDataSource")
+    public ResponseVO deleteDataSource(@RequestParam("did")int did){
+        return dataSourceService.deleteDataSource(did);
+    }
+
+    @RequestMapping(value = "/searchDataSource")
+    public ResponseVO searchDataSource(@RequestParam("pname") String pname,int page){
+        return dataSourceService.searchDataSourceByPname(pname,page);
+    }
+
+    @RequestMapping(value = "/getDataSource")
+    public ResponseVO getDataSource(@RequestParam("did") int did){
+        return dataSourceService.getDataSourceById(did);
+    }
+
+    @RequestMapping(value = "/getAllDataSource")
+    public ResponseVO getAllDataSource(@RequestParam("page") int page){
+        return dataSourceService.getAllDataSource(page);
+    }
+
 }

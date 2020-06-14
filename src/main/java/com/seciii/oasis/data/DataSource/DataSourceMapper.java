@@ -17,4 +17,10 @@ public interface DataSourceMapper {
 
     int updateDataSource(DataSource dataSource);
 
+    void deleteDataSource(int did);
+
+    List<DataSource> searchDataSourceByPname(String pname,int begin);
+
+    List<DataSource> selectAllDataBase(int begin);
+
 }
