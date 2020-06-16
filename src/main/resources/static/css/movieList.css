@@ -1,0 +1,100 @@
+.movie-item {
+    list-style: none;
+    display: flex;
+    margin-top: 20px;
+    border-bottom: 1px solid #ccc;
+}
+.movie-item .movie-img {
+    height: 159px;
+    width: 110px;
+}
+
+.movie-info {
+    flex: 1;
+    padding: 10px 20px 0 20px;
+}
+
+.movie-info > div {
+    margin: 5px 0;
+}
+
+.movie-title {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.movie-type-want {
+    display: flex;
+    justify-content: space-between;
+}
+
+.movie-description {
+    max-height: 60px;
+    min-height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.movie-want {
+    width: 85px;
+    margin-left: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.movie-operation {
+    margin-left: auto;
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px;
+    margin-bottom: -30px;
+}
+
+.show-box{
+    background: #fafafa;
+    height: 100%;
+}
+
+.remark{
+    background: #e8ebeb;
+    padding:4px;
+}
+
+.func-data{
+    padding: 25px;
+    margin-top: -20px;
+}
+
+.data-btn{
+    float: left;
+}
+
+.data-choose{
+    margin-left:10px;
+    float:left;
+}
+
+.data-search{
+    float: left;
+    margin-left: 10px;
+
+}
+
+.selection{
+    width: 150px;
+    height: auto;
+    text-align: center;
+    padding: 8px;
+    font-size: 14px;
+    border-color: #cccccc;
+    border-radius: 4px;
+}
+
+.data-form{
+    clear: both;
+}

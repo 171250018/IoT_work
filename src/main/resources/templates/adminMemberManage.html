@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>会员卡管理</title>
+    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="/css/adminMemberManage.css"/>-->
+
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/request.js"></script>
+    <script src="/js/adminMemberManage.js"></script>
+
+    <style>
+
+        .vip-card-container {
+            display: flex;
+            width: 100%;
+            min-height: 0px;
+            margin: 5px 0;
+        }
+        .vip-card {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-basis: 70%;
+            justify-content: space-around;
+
+        }
+
+        .vip-line {
+            display: flex;
+            align-items: baseline;
+        }
+
+        .vip-card-name-style {
+            flex-basis: 30%;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            color: #fff;
+            justify-content: space-around;
+
+        }
+
+        .refund-header {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .vip-card-description{
+            font-size: 15px;
+            font-family: Arial;
+        }
+
+        .refund-add-line-insert-btn{
+            padding-left: 5px;
+            padding-right: 5px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .refund-add-line-delete-btn{
+            padding-left: 5px;
+            padding-right: 5px;
+            margin-left: 0px;
+            margin-right: 5px;
+        }
+
+        .refund-edit-line-insert-btn{
+            padding-left: 5px;
+            padding-right: 5px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .refund-edit-line-delete-btn{
+            padding-left: 5px;
+            padding-right: 5px;
+            margin-left: 0px;
+            margin-right: 5px;
+        }
+
+        .control-label{
+            text-align: left;
+        }
+    </style>
+
+</head>
+<body>
+<div class="main-container">
+    <div class="nav-left-container">
+        <div class="nav-user-container" style="margin-bottom: 50px;">
+            <img class="avatar-lg" src="/images/defaultAvatar.jpg" />
+            <p class="title" id="admin-nickname">Admin</p>
+        </div>
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation"><a href="/admin/movie/manage"><i class="icon-film"></i> 电影管理</a></li>
+            <li role="presentation"><a href="/admin/session/manage"><i class="icon-calendar"></i> 排片管理</a></li>
+            <li role="presentation"><a href="/admin/promotion/manage"><i class="icon-gift"></i> 活动管理</a></li>
+            <li role="presentation"><a href="/admin/cinema/manage"><i class="icon-cogs"></i> 影院管理</a></li>
+            <li role="presentation"><a href="/admin/cinema/statistic"><i class="icon-bar-chart"></i> 影院统计</a></li>
+            <li role="presentation" class="active"><a href="#"><i class="icon-beer"></i> 会员卡管理</a></li>
+            <li role="presentation"><a href="/admin/refundManage"><i class="icon-gift"></i> 退票管理</a></li>
+        </ul>
+    </div>
+    <div class="content-container">
+        <div class="content-header" style="display: flex; justify-content: space-between;">
+            <span class="title gray-text">会员卡管理</span>
+            <button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#vipCardAddModal">
+                <i class="icon-plus-sign"></i> 发布会员卡
+            </button>
+        </div>
+        <div class="content-item">
+
+            <div class="vip-card-container">
+                <div class="vip-card card">
+                    <div class="vip-line">
+                        <span class="vip-card-description">最低总充值金额：5000元</span>
+                    </div>
+                    <div class="vip-line">
+                        <span class="vip-card-description">充值优惠：满100送20</span>
+                    </div>
+                    <div class="vip-line">
+                        <span class="vip-card-description">购票优惠：减免最终应付金额的10%</span>
+                    </div>
+                </div>
+                <div class="vip-card-name-style primary-bg">
+                    <span class="title">金卡</span>
+                </div>
+            </div>
+            <div class="vip-card-operations" style="text-align: right;margin: 0px 0px 20px 0px">
+                <button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#vipCardEditModal">
+                    <span>修改</span>
+                </button>
+                <button type="button" class="btn btn-danger vip-card-delete-btn" data-backdrop="static" data-toggle="modal">
+                    <span>删除</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="vipCardAddModal" tabindex="-1" role="dialog" aria-labelledby="vipCardModalLabel">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加会员卡</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="vip-card-name-input"><span class="error-text">*</span>名称</label>
+                        <div class="col-sm-10" style="padding-left: 0px">
+                            <input type="text" class="form-control" id="vip-card-name-input" placeholder="请输入会员卡名称">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="min-recharge-input"><span class="error-text">*</span>充值金额</label>
+                        <div class="col-sm-10" style="padding-left: 0px">
+                            <input type="number" class="form-control" id="min-recharge-input" placeholder="请输入最低充值金额">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-inline">
+                            <label class="col-sm-2 control-label"><span class="error-text">*</span>充值优惠</label>
+                            <div class="col-sm-8 input-group" style="display: flex;">
+                                <div style="padding-top: 7px; padding-right: 10px; font-weight: 800">满</div>
+                                <input type="number" class="form-control" placeholder="充值达到的金额" id="reach-amount">
+                                <div style="padding-top: 7px; padding-left: 10px; font-weight: 800">送</div>
+                                <input type="number" class="form-control" style="margin-left: 10px" placeholder="赠送的金额" id="present-amount">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="ticket-discount-input"><span class="error-text">*</span>购票优惠</label>
+                        <div class="col-sm-10" style="padding-left: 0px">
+                            <input type="text" class="form-control" id="ticket-discount-input" placeholder="请输入购票优惠，即会员支付时可享有的额外优惠，如九折，即输入0.9">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="vip-card-add-form-btn">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="vipCardEditModal" tabindex="-1" role="dialog" aria-labelledby="vipCardModalLabel">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">修改会员卡</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="vip-card-name-edit"><span class="error-text">*</span>名称</label>
+                        <div class="col-sm-10" style="padding-left: 0px">
+                            <input type="text" class="form-control" id="vip-card-name-edit" placeholder="请输入会员卡名称">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="min-recharge-edit"><span class="error-text">*</span>充值金额</label>
+                        <div class="col-sm-10" style="padding-left: 0px">
+                            <input type="text" class="form-control" id="min-recharge-edit" placeholder="请输入最低充值金额">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-inline">
+                            <label class="col-sm-2 control-label"><span class="error-text">*</span>充值优惠</label>
+                            <div class="col-sm-8 input-group" style="display: flex;">
+                                <div style="padding-top: 7px; padding-right: 10px; font-weight: 800">满</div>
+                                <input type="number" class="form-control" placeholder="充值达到的金额" id="reach-amount-edit">
+                                <div style="padding-top: 7px; padding-left: 10px; font-weight: 800">送</div>
+                                <input type="number" class="form-control" style="margin-left: 10px" placeholder="赠送的金额" id="present-amount-edit">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="ticket-discount-edit"><span class="error-text">*</span>购票优惠</label>
+                        <div class="col-sm-10" style="padding-left: 0px">
+                            <input type="text" class="form-control" id="ticket-discount-edit" placeholder="请输入购票优惠，即会员支付时可享有的额外优惠，如九折，输入0.9">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="vip-card-edit-form-btn">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

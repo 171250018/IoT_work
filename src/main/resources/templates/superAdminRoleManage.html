@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>影院角色管理</title>
+    <!-- 引入css样式文件 -->
+    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/userList.css"/>
+    <!-- Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <!-- font-asesome图标库 -->
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>
+
+
+    <!-- 引入js脚本文件 -->
+    <!-- jquery -->
+    <script src="/js/jquery.js"></script>
+    <!-- Bootstrap 核心 JavaScript 文件 -->
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/request.js"></script>
+    <script src="/js/superAdminRoleManage.js"></script>
+
+    <style>
+
+        .table-wrapper .table .super-admin-role-list-item:hover{
+            transform: scale3d(1.1,1.1,1.1);
+            box-shadow: 0 0 20px #e5e5e5;
+            cursor: pointer;
+            background-color: white;
+        }
+    </style>
+
+</head>
+<body>
+<div class="main-container">
+    <div class="nav-left-container">
+        <div class="nav-user-container" style="margin-bottom: 50px;">
+            <img class="avatar-lg" src="/images/defaultAvatar.jpg" />
+            <p class="title">唯一的超管</p>
+        </div>
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation" class="active"><a href="#"><i class="icon-film"></i> 管理影院角色</a></li>
+
+        </ul>
+    </div>
+    <div class="content-container">
+        <!--已修改  添加表单-->
+        <div class="card">
+            <div class="header">
+                <div class="title">影院员工列表：</div>
+                <button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#roleModal">
+                    <i class="icon-plus-sign"></i> 添加员工
+                </button>
+            </div>
+            <div class="table-wrapper">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>账号名</th>
+                        <th>密码</th>
+                        <th>角色</th>
+                        <th>昵称</th>
+                    </tr>
+                    </thead>
+                    <tbody id="super-admin-role-list">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="roleModal" tabindex="-1" role="dialog" aria-labelledby="roleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="roleModalLabel">添加员工</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="role-name-input"><span class="error-text">*</span>账号名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="role-name-input" placeholder="请输入员工账号名称">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="role-password-input"><span class="error-text">*</span>密码</label>
+                        <div class="col-sm-10">
+                        <input type="password" class="form-control" id="role-password-input" placeholder="请输入员工密码">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="role-type-input"><span class="error-text">*</span>影院角色</label>
+                        <div class="col-sm-10">
+                        <input type="text" class="form-control" id="role-type-input" value="影院员工" readonly="readonly">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="role-nickname-input">员工昵称</label>
+                        <div class="col-sm-10">
+                        <input type="text" class="form-control" id="role-nickname-input" placeholder="请输入员工昵称">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="role-form-btn">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="roleEditModal" tabindex="-1" role="dialog" aria-labelledby="roleEditModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="roleEditModalLabel">修改员工信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="role-name-edit"><span class="error-text">*</span>账号名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="role-name-edit" placeholder="请输入员工账号名称">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="role-password-edit"><span class="error-text">*</span>密码</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="role-password-edit" placeholder="请输入员工密码">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="role-type-edit"><span class="error-text">*</span>影院角色</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="role-type-edit" value="影院员工" readonly="readonly">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="role-nickname-edit">员工昵称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="role-nickname-edit" placeholder="请输入员工昵称">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="role-form-edit-btn">确认</button>
+                <button type="button" class="btn btn-danger" id="role-delete-btn">删除</button>
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

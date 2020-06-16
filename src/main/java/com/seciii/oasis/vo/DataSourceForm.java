@@ -1,10 +1,5 @@
 package com.seciii.oasis.vo;
 
-import com.seciii.oasis.po.Author;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class DataSourceForm {
     private int pid;
     private int month;

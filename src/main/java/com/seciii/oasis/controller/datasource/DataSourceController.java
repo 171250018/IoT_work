@@ -1,6 +1,5 @@
 package com.seciii.oasis.controller.datasource;
 
-import com.seciii.oasis.bl.author.AuthorService;
 import com.seciii.oasis.bl.datasource.DataSourceService;
 import com.seciii.oasis.vo.DataSourceForm;
 import com.seciii.oasis.vo.ResponseVO;
@@ -15,8 +14,6 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/dataSource")
 public class DataSourceController {
-    @Autowired
-    private AuthorService authorService;
 
     @Autowired
     private DataSourceService dataSourceService;

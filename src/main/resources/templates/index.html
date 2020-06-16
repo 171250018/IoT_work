@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>数据分析</title>
+    <!-- 引入css样式文件 -->
+    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/movieList.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/userMovie.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/userList.css"/>
+    <!-- Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <!-- font-asesome图标库 -->
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>
+
+    <!-- jquery -->
+    <script src="/js/jquery.js"></script>
+    <!-- Bootstrap 核心 JavaScript 文件 -->
+    <script src="/js/bootstrap.js"></script>
+    <!-- 引入js脚本文件 -->
+    <script src="/js/request.js"></script>
+    <script src="/js/index.js"></script>
+    <script src="/js/adminMovieManage.js"></script>
+</head>
+<body>
+<div class="main-container">
+    <div class="nav-left-container">
+        <div class="nav-user-container" style="margin-bottom: 35px;">
+            <img class="avatar-lg" src="/images/iot.jpg" />
+            <p class="title">数据分析</p>
+        </div>
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation" class="active"><a href="#"><i class="icon-film"></i> 数据源</a></li>
+            <li role="presentation"><a href="/admin/session/manage"><i class="icon-calendar"></i> 分析透视</a></li>
+            <li role="presentation"><a href="/admin/promotion/manage"><i class="icon-gift"></i> 时序透视</a></li>
+            <li role="presentation"><a href="/admin/cinema/manage"><i class="icon-cogs"></i> 可视化分析</a></li>
+            <li role="presentation"><a href="/admin/cinema/statistic"><i class="icon-bar-chart"></i> API服务</a></li>
+            <li role="presentation"><a href="/admin/memberManage"><i class="icon-beer"></i> 会员卡管理</a></li>
+            <li role="presentation"><a href="/admin/refundManage"><i class="icon-gift"></i> 退票管理</a></li>
+        </ul>
+    </div>
+    <div class="content-container">
+        <div class="show-box">
+            <!--标题-->
+            <div class="content-header">
+                <div class="title gray-text">数据源</div>
+            </div>
+            <!--备注-->
+            <div style="padding: 20px;">
+                <div class="remark">
+                    <p style="font-size:15px">数据存储时间说明</p>
+                    <p style="font-size:13px">物联网平台可为每个产品提供一个月以上的存储周期</p>
+                </div>
+            </div>
+            <!--按钮/筛选/搜索-->
+            <div class="func-data">
+                <div class="data-btn">
+                    <button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#movieModal"><i class="icon-plus-sign"></i> 添加设备数据源</button>
+                </div>
+                <div class="data-choose">
+                    <select class="selection">
+                        <option value="全部存储周期">全部存储周期</option>
+                        <option value="3个月">3个月</option>
+                        <option value="6个月">6个月</option>
+                        <option value="1年">1年</option>
+                        <option value="3年">3年</option>
+                        <option value="5年">5年</option>
+                        <option value="10年">10年</option>
+                        <option value="永久（102年）">永久（102年）</option>
+                    </select>
+                    <!--
+                    <button class="nav-user-container btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img class="avatar-sm" src="/images/defaultAvatar.jpg" />
+                        <span id="user-nickname" class="gray-text" style="vertical-align: middle">全部存储周期&nbsp;<span class="caret"></span></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="/user/buy">3个月</a></li>
+                        <li><a href="/user/unpayTicket">6个月</a></li>
+                        <li><a href="/user/member">1年</a></li>
+                        <li><a href="/user/salesLog">3年</a></li>
+                        <li id="logout"><a href="#">5年</a></li>
+                        <li><a href="/user/salesLog">10年</a></li>
+                        <li><a href="/user/salesLog">永久（102年）</a></li>
+                    </ul>
+                    -->
+                </div>
+                <div class="data-search">
+                    <input type="text" class="form-control" id="search-input" placeholder="请输入产品名称">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" id="search-btn" type="button">搜索</button>
+                    </span>
+                </div>
+            </div>
+
+            <!--表单-->
+
+            <div class="data-form">
+                <div class="card">
+                    <div class="table-wrapper">
+                        <table class="table table-setting">
+                            <thead class="table-head">
+                            <tr>
+                                <th>产品名称</th>
+                                <th>存储周期</th>
+                                <th>创建时间</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tr>
+                                <th>try1</th>
+                                <th>3个月</th>
+                                <th>2020-06-12 16:10:47</th>
+                                <th><a class="link-func">时序透视</a> | <a class="link-func">可视化分析</a> | <a class="link-func">SQL分析</a> | <a class="link-func">修改周期</a> | <a class="link-func">删除</a> </th>
+                            </tr>
+                            <tr>
+                                <th>try2</th>
+                                <th>6个月</th>
+                                <th>2020-05-06 21:56:29</th>
+                                <th><a class="link-func">时序透视</a> | <a class="link-func">可视化分析</a> | <a class="link-func">SQL分析</a> | <a class="link-func">修改周期</a> | <a class="link-func">删除</a> </th>
+                            </tr>
+                            <tbody id="user-unpay-ticket-list">
+                            </tbody>
+                        </table>
+                        <div id="unpay-ticket-total-container" style="text-align: right; font-size : 18px; display: none">合计：<span id="unpay-ticket-total" >0.00</span>元</div>
+                    </div>
+                    <div id="user-umpay-ticket-footer" style="display: none">
+                        <div style="text-align: right">
+                            <button id="user-unpay-confirm-button" type="button" style="margin: 5px" disabled="disabled" class="refund-button btn btn-success" data-toggle="modal" data-target="#buyModal" onclick="pay()">立即付款</button>
+                            <button id="user-unpay-delete-button" type="button" disabled="disabled" class="refund-button btn btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="showConfirmDetail()">立即删除</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <ul class="movie-on-list">
+        </ul>
+    </div>
+</div>
+</body>
+
+</html>

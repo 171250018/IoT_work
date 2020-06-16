@@ -1,0 +1,58 @@
+.table-wrapper {
+
+}
+
+.table-wrapper .table b {
+    color: #1caf9a;
+    font-size: 20px;
+}
+
+.table-wrapper .table th,td{
+    height: 60px;
+    vertical-align: middle;
+    text-align:center;
+}
+
+.card {
+    padding: 10px 25px;
+    color: #5d5d5d;
+    margin-bottom: 40px;
+}
+
+.card .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0 5px 0;
+}
+
+.card .footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0 5px 0;
+}
+
+.card .header .title {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.table-head{
+    background: #fafafa;
+}
+
+.table-setting{
+
+}
+
+th{
+    font-size: 13px;
+}
+
+.link-func{
+    font-size:13px;
+    color: #605e5d;
+}

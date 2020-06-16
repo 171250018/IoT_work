@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>购票</title>
+    <!-- Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <!-- font-asesome图标库 -->
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>
+
+    <!-- 引入css样式文件 -->
+    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/userList.css"/>
+
+    <!-- 引入js脚本文件 -->
+    <!-- jquery -->
+    <script src="/js/jquery.js"></script>
+    <!-- Bootstrap 核心 JavaScript 文件 -->
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/request.js"></script>
+    <script src="/js/userUnpayTicket.js"></script>
+
+</head>
+<body>
+<div class="nav-top-container">
+    <div class="nav-logo title">NJU-Se电影购票系统</div>
+    <ul class="nav nav-pills">
+        <li role="presentation"><a href="/user/home">个人主页</a></li>
+        <li role="presentation"><a href="/user/movie">电影列表</a></li>
+    </ul>
+    <div class="btn-group">
+        <button class="nav-user-container btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img class="avatar-sm" src="/images/defaultAvatar.jpg" />
+            <span id="user-nickname" class="gray-text" style="vertical-align: middle">用户A&nbsp;<span class="caret"></span></span>
+        </button>
+        <ul class="dropdown-menu">
+
+            <li><a href="/user/buy">电影票</a></li>
+            <li><a href="#">未完成的电影票</a></li>
+            <li><a href="/user/member">卡包</a></li>
+            <li><a href="/user/salesLog">消费记录</a></li>
+            <li id="logout"><a href="#">登出</a></li>
+        </ul>
+    </div>
+</div>
+<div class="content-container" id="unpay-ticket-container">
+    <!--已修改  添加表单-->
+    <div class="card">
+        <div class="header">
+            <div class="title">尚未付款的电影票</div>
+            <button type="button" class="refund-button btn btn-info" id="batch-refund-button" onclick="batchRefund()">批量操作</button>
+        </div>
+        <div class="table-wrapper">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>电影名称</th>
+                    <th>影厅名</th>
+                    <th>座位</th>
+                    <th>放映时间</th>
+                    <th>预计结束时间</th>
+                    <th>票价</th>
+                    <th>状态</th>
+                    <th>有效时间</th>
+                </tr>
+                </thead>
+                <tbody id="user-unpay-ticket-list">
+                </tbody>
+            </table>
+            <div id="unpay-ticket-total-container" style="text-align: right; font-size : 18px; display: none">合计：<span id="unpay-ticket-total" >0.00</span>元</div>
+        </div>
+        <div id="user-umpay-ticket-footer" style="display: none">
+            <div style="text-align: right">
+                <button id="user-unpay-confirm-button" type="button" style="margin: 5px" disabled="disabled" class="refund-button btn btn-success" data-toggle="modal" data-target="#buyModal" onclick="pay()">立即付款</button>
+                <button id="user-unpay-delete-button" type="button" disabled="disabled" class="refund-button btn btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="showConfirmDetail()">立即删除</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="content-container" id="unpay-finish-container" style="display: none;">
+    <div class="card col-md-12">
+        <div class="col-md-10 col-md-offset-1" id="success-state">
+            <div class="success-notice" style="text-align: center">
+                <img src="/images/success.png"/>
+                <div class="hint">支付成功，至<a class="hint" href="/user/buy">“我的电影票”</a>页面查看</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="buyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">付款</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs" style="margin-bottom: 20px;">
+                    <li role="presentation" class="active" id="member-pay" onclick="switchPay(0)"><a href="#">会员卡支付</a></li>
+                    <li role="presentation" id="nonmember-pay" onclick="switchPay(1)"><a href="#">银行卡支付</a></li>
+                </ul>
+
+                <div id="modal-body-member" style="margin-bottom: 20px;">
+                    <div id="member-balance"><b>会员卡余额：</b></div>
+                </div>
+
+                <div id="modal-body-nonmember" style="display: none;">
+                    <div class="form-group">
+                        <label for="userBuy-cardNum">银行卡号</label>
+                        <input class="form-control" id="userBuy-cardNum" placeholder="请输入银行卡号">
+                        <p id="userBuy-cardNum-error" class="notice">银行卡号不能为空</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="userBuy-cardPwd">密码</label>
+                        <input type="password" class="form-control" id="userBuy-cardPwd" placeholder="请输入密码">
+                        <p id="userBuy-cardPwd-error" class="notice">密码不能为空</p>
+                    </div>
+                </div>
+
+                <div id="pay-amount"><b>金额：</b></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="payConfirmClick()">确认支付</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h3 class="modal-title">提示<button type="button" class="close" data-dismiss="modal">&times;</button></h3>
+            </div>
+
+            <div class="modal-body" id="user-log-list-detail">
+                <h4>您确认要删除这些电影票吗?</h4>
+                <div class="table-wrapper">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>电影名称</th>
+                            <th>影厅名</th>
+                            <th>座位</th>
+                            <th>放映时间</th>
+                            <th>预计结束时间</th>
+                        </tr>
+                        </thead>
+                        <tbody id="user-unpay-ticket-delete-confrim">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="deleteTickets()">确认</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

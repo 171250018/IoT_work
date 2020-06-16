@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>退票管理</title>
+    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/adminRefund.css"/>
+
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/request.js"></script>
+    <script src="/js/adminRefundManage.js"></script>
+
+</head>
+<body>
+<div class="main-container">
+    <div class="nav-left-container">
+        <div class="nav-user-container" style="margin-bottom: 50px;">
+            <img class="avatar-lg" src="/images/defaultAvatar.jpg" />
+            <p class="title" id="admin-nickname">Admin</p>
+        </div>
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation"><a href="/admin/movie/manage"><i class="icon-film"></i> 电影管理</a></li>
+            <li role="presentation"><a href="/admin/session/manage"><i class="icon-calendar"></i> 排片管理</a></li>
+            <li role="presentation"><a href="/admin/promotion/manage"><i class="icon-gift"></i> 活动管理</a></li>
+            <li role="presentation"><a href="/admin/cinema/manage"><i class="icon-cogs"></i> 影院管理</a></li>
+            <li role="presentation"><a href="/admin/cinema/statistic"><i class="icon-bar-chart"></i> 影院统计</a></li>
+            <li role="presentation"><a href="/admin/memberManage"><i class="icon-beer"></i> 会员卡管理</a></li>
+            <li role="presentation" class="active"><a href="#"><i class="icon-gift"></i> 退票管理</a></li>
+        </ul>
+    </div>
+    <div class="content-container">
+        <div class="content-header" style="display: flex; justify-content: space-between;">
+            <span class="title gray-text">退票管理</span>
+            <button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#refundAddModal">
+                <i class="icon-plus-sign"></i> 发布退票策略
+            </button>
+        </div>
+        <div class="content-item">
+            <div class="refund-container">
+                <div class="refund-card card">
+                    <div class="refund-line">
+                        <span class="refund-description">开场至开场前一小时退票，退款50%</span>
+                    </div>
+                    <div class="refund-line">
+                        <span class="refund-description">开场前一小时至开场前两小时退票，退款70%</span>
+                    </div>
+                    <div class="refund-line">
+                        <span class="refund-description">开场前两小时至开场前三小时退票，退款90%</span>
+                    </div>
+                    <div class="refund-line">
+                        <span class="refund-description">开场三小时之前退票，全额退款</span>
+                    </div>
+                </div>
+                <div class="refund-coupon primary-bg">
+                    <span class="title">常规退票策略</span>
+                </div>
+            </div>
+            <div class="refund-operations" style="text-align: right;margin: 0px 0px 20px 0px">
+                <button type="button" class="btn btn-primary" id="modify-refund-id-1" data-backdrop="static" data-toggle="modal" data-target="#RefundModifyModal">
+                    <span>修改</span>
+                </button>
+                <button type="button" class="btn btn-danger" id="delete-refund-id-1" data-backdrop="static" data-toggle="modal" data-target="#RefundDeleteModal">
+                    <span>删除</span>
+                </button>
+            </div>
+            <div class="refund-container">
+                <div class="refund-card card">
+                    <div class="refund-line">
+                        <span class="refund-description">开场至开场前一小时退票，退款50%</span>
+                    </div>
+                    <div class="refund-line">
+                        <span class="refund-description">开场一小时之前退票，全额退款</span>
+                    </div>
+                </div>
+                <div class="refund-coupon primary-bg">
+                    <span class="title">2019春节档退票策略</span>
+                </div>
+            </div>
+            <div class="refund-operations" style="text-align: right;margin: 0px 0px 20px 0px">
+                <button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#RefundModifyModal">
+                    <span>修改</span>
+                </button>
+                <button type="button" class="btn btn-danger" data-backdrop="static" data-toggle="modal" data-target="#RefundDeleteModal">
+                    <span>删除</span>
+                </button>
+            </div>
+            <!---->
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="refundAddModal" tabindex="-1" role="dialog" aria-labelledby="refundModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加退票策略</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="refund-name-input"><span class="error-text">*</span>策略名称</label>
+                        <div class="col-sm-10" style="padding-left: 0px">
+                            <input type="text" class="form-control" id="refund-name-input" placeholder="请输入退票策略名称">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="form-inline">
+                            <label class="col-sm-2 control-label"><span class="error-text">*</span>区间选择</label>
+                            <div class="col-sm-10 input-group" style="display: flex;">
+                                <input type="number" class="form-control form-add" placeholder="开始时间" value="0" readonly="readonly">
+                                <input type="number" class="form-control form-add" style="margin-left: 10px" placeholder="退款比例">
+                                <button type="button" class="btn btn-warning refund-add-line-insert-btn">
+                                    <span>插入</span>
+                                </button>
+                                <button type="button" class="btn btn-danger refund-add-line-delete-btn">
+                                    <span>删除</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row new-row">
+                        <div class="form-inline">
+                            <div class="col-sm-10 col-sm-offset-2 input-group" style="display: flex;">
+                                <input type="number" class="form-control form-add" placeholder="开始时间">
+                                <input type="number" class="form-control form-add" style="margin-left: 10px" placeholder="退款比例">
+                                <button type="button" class="btn btn-warning refund-add-line-insert-btn">
+                                    <span>插入</span>
+                                </button>
+                                <button type="button" class="btn btn-danger refund-add-line-delete-btn">
+                                    <span>删除</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="refund-strategy-add-form-btn">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="refundEditModal" tabindex="-1" role="dialog" aria-labelledby="refundModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">修改退票策略</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="refund-name-edit"><span class="error-text">*</span>策略名称</label>
+                        <div class="col-sm-10" style="padding-left: 0px">
+                            <input type="text" class="form-control" id="refund-name-edit" placeholder="请输入退票策略名称">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="form-inline">
+                            <label class="col-sm-2 control-label"><span class="error-text">*</span>区间选择</label>
+                            <div class="col-sm-10 input-group" style="display: flex;">
+                                <input type="number" class="form-control form-edit" placeholder="开始时间" value="0">
+                                <input type="number" class="form-control form-edit" style="margin-left: 10px" placeholder="退款比例">
+                                <button type="button" class="btn btn-warning refund-edit-line-insert-btn">
+                                    <span>插入</span>
+                                </button>
+                                <button type="button" class="btn btn-danger refund-edit-line-delete-btn">
+                                    <span>删除</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<div class="form-group row new-row">-->
+                        <!--<div class="form-inline">-->
+                            <!--<div class="col-sm-10 col-sm-offset-2 input-group" style="display: flex;">-->
+                                <!--<input type="number" class="form-control form-edit" placeholder="开始时间">-->
+                                <!--<input type="number" class="form-control form-edit" style="margin-left: 10px" placeholder="退款比例">-->
+                                <!--<button type="button" class="btn btn-warning refund-edit-line-insert-btn">-->
+                                    <!--<span>插入</span>-->
+                                <!--</button>-->
+                                <!--<button type="button" class="btn btn-danger refund-edit-line-delete-btn">-->
+                                    <!--<span>删除</span>-->
+                                <!--</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="refund-strategy-edit-form-btn">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

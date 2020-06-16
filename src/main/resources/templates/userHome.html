@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>电影</title>
+    <!-- Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <!-- font-asesome图标库 -->
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>
+
+    <!-- 引入css样式文件 -->
+    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/userHome.css"/>
+
+    <!-- 引入js脚本文件 -->
+    <!-- jquery -->
+    <script src="/js/jquery.js"></script>
+    <!-- Bootstrap 核心 JavaScript 文件 -->
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/request.js"></script>
+    <script src="/js/userHome.js"></script>
+
+</head>
+<body>
+    <div class="nav-top-container">
+        <div class="nav-logo title">NJU-Se电影购票系统</div>
+        <ul class="nav nav-pills">
+            <li role="presentation" class="active"><a href="#">个人主页</a></li>
+            <li role="presentation"><a href="/user/movie">电影列表</a></li>
+        </ul>
+        <div class="btn-group">
+            <button class="nav-user-container btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img class="avatar-sm" src="/images/defaultAvatar.jpg" />
+                <span id="user-nickname" class="gray-text" style="vertical-align: middle">用户A&nbsp;<span class="caret"></span></span>
+            </button>
+            <span style="display: inline-grid; margin: 0px 5px; position: absolute; width: 60px">
+                <a data-toggle="modal" data-target="#nicknameModal" style="cursor: pointer">修改昵称</a>
+                <a data-toggle="modal" data-target="#passwordModal" style="cursor: pointer">修改密码</a>
+            </span>
+            <ul class="dropdown-menu">
+                <li><a href="/user/buy">电影票</a></li>
+                <li><a href="/user/unpayTicket">未完成的电影票</a></li>
+                <li><a href="/user/member">卡包</a></li>
+                <li><a href="/user/salesLog">消费记录</a></li>
+                <li id="logout"><a href="#">登出</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 暂时没内容，点击导航 ' 电影 ' 看看吧 -->
+    <!-- 可能不需要的功能 -->
+    <div class="content-container">
+        <div class="movie-contianer">
+
+            <p class="title primary-text">热映电影</p>
+            <ul class="movie-on-list card" id="user-home-hotshowing">
+            </ul>
+            <p class="title primary-text">我想看的</p>
+            <ul class="movie-like-list card" id="user-home-movielike">
+            </ul>
+        </div>
+        <div class="statistic-container">
+            <p class="title primary-text">票房统计</p>
+            <ul class="top-sell-list card" id="user-home-boxoffice">
+                <div class="statistic-item">
+                    <span>电影1</span>
+                    <span class="error-text">99</span>
+                </div>
+            </ul>
+            <p class="title primary-text">最受欢迎</p>
+            <ul class="top-expectation-list card" id="user-home-popular">
+                <div class="statistic-item">
+                    <span>电影1</span>
+                    <span class="error-text">99</span>
+                </div>
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal fade" id="nicknameModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <span class="modal-title" style="font-size: medium;">修改昵称</span>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <label class="input-group-text">昵称</label>
+                    <input id="new-nickname-input" type="text" class="form-control" placeholder="请输入新的昵称">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="alterNickname()">确认</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="passwordModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <span class="modal-title" style="font-size: medium;">修改密码</span>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="input-group-text">原密码</label>
+                            <div>
+                                <input id="new-password-origin-input" type="password" class="form-control" placeholder="请输入原密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="input-group-text">新密码</label>
+                            <div>
+                                <input id="new-password-current-input" type="password" class="form-control" placeholder="请输入新密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="input-group-text">确认新密码</label>
+                            <div>
+                                <input id="new-password-check-input" type="password" class="form-control" placeholder="请确认新密码">
+                            </div>
+                        </div>
+                        <span id="new-password-prompt" style="color: red"></span>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="alterPassword()">确认</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,11 +1,5 @@
 package com.seciii.oasis.vo;
 
-import com.seciii.oasis.po.Author;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 public class DataSourceVO {
     private int did;
     private int pid;

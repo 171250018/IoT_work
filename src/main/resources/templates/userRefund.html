@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>电影票</title>
+    <!-- Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <!-- font-asesome图标库 -->
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>
+
+    <!-- 引入css样式文件 -->
+    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/userList.css"/>
+
+    <!-- 引入js脚本文件 -->
+    <!-- jquery -->
+    <script src="/js/jquery.js"></script>
+    <!-- Bootstrap 核心 JavaScript 文件 -->
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/request.js"></script>
+    <script src="/js/userRefund.js"></script>
+
+
+</head>
+<body>
+<div class="nav-top-container">
+    <div class="nav-logo title">NJU-Se电影购票系统</div>
+    <ul class="nav nav-pills">
+        <li role="presentation"><a href="/user/home">个人主页</a></li>
+        <li role="presentation"><a href="/user/movie">电影列表</a></li>
+    </ul>
+    <div class="btn-group">
+        <button class="nav-user-container btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img class="avatar-sm" src="/images/defaultAvatar.jpg" />
+            <span id="user-nickname" class="gray-text" style="vertical-align: middle">用户A&nbsp;<span class="caret"></span></span>
+        </button>
+        <ul class="dropdown-menu">
+
+            <li><a href="/user/buy">电影票</a></li>
+            <li><a href="/user/unpayTicket">未完成的电影票</a></li>
+            <li><a href="/user/member">卡包</a></li>
+            <li><a href="/user/salesLog">消费记录</a></li>
+            <li id="logout"><a href="#">登出</a></li>
+        </ul>
+    </div>
+</div>
+<div class="content-container">
+    <!--已修改  添加表单-->
+    <div class="card">
+        <div class="header">
+            <div class="title">可退款的电影票
+                <button style="margin: 0px 10px" type="button" class="refund-button btn btn-secondary" data-backdrop="static" data-toggle="modal" data-target="#refundInfoModal">退款须知</button>
+            </div>
+            <div style="text-align: right">
+                <button style="margin: 0px 10px" type="button" class="refund-button btn btn-info" id="batch-refund-button" onclick="batchRefund()">批量操作</button>
+                <a type="button" class="refund-button btn btn-primary" href="/user/buy">返回</a>
+            </div>
+        </div>
+        <div class="table-wrapper">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>电影名称</th>
+                    <th>影厅名</th>
+                    <th>座位</th>
+                    <th>放映时间</th>
+                    <th>预计结束时间</th>
+                    <th>状态</th>
+                </tr>
+                </thead>
+                <tbody id="user-refund-ticket-list">
+                </tbody>
+            </table>
+        </div>
+        <div class="text-right">
+            <button id="refund-check-button" type="button" class="refund-button btn btn-warning text-right" data-backdrop="static" data-toggle="modal"
+                    data-target="#refundConfirmModal" style="display: none" onclick="showRefundDetail()" disabled="disabled">查看退票信息</button>
+        </div>
+    </div>
+
+    <!--对返还金额的计算方式进行说明-->
+    <div class="modal fade" id="refundInfoModal" tabindex="-1" role="dialog" aria-labelledby="movieModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">退票返还金额结算方式</h4>
+                </div>
+                <div class="modal-body">
+                    <p>您可能无法退回全款。</p>
+                    <p>我们将根据不同场次和不同时间向您展示所选中每一张票的最终退款金额。</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--让用户进一步确认退款，并告知用户可以获得的总金额-->
+    <div class="modal fade" id="refundConfirmModal" tabindex="-1" role="dialog" aria-labelledby="movieModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: max-content;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">退票详情</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>电影名称</th>
+                                <th>影厅名</th>
+                                <th>座位</th>
+                                <th>放映场次</th>
+                                <th>实付金额</th>
+                                <th>退票比率</th>
+                                <th>实退金额</th>
+                                <th>退票路径</th>
+                            </tr>
+                            </thead>
+                            <tbody id="user-refund-ticket-detail-list">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="user-refund-ticket-detail-total" style="text-align: right;margin: 0px 10px">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="confrimRefund()">确认退票</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">取消操作</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

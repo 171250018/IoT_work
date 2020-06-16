@@ -1,0 +1,19 @@
+.table-wrapper .table #listDetail:hover{
+    transform: scale3d(1.1,1.1,1.1);
+    box-shadow: 0 0 20px #e5e5e5;
+    cursor: pointer;
+    background-color: white;
+}
+
+.user-sales-log-detail-title {
+    width: 150px;
+    display: inline-block;
+    font-weight: 600;
+}
+
+.ticket-detail-container ul{
+    display: inline-block;
+}
+
+.user-sales-log-detail-content{
+}
