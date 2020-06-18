@@ -34,6 +34,13 @@ CREATE TABLE `data_source`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic ;
 
 -- ----------------------------
+-- Records of product
+-- ----------------------------
+INSERT INTO `data_source` VALUES (1,1,3,'2020-06-18 10:04:21',0);
+INSERT INTO `data_source` VALUES (2,2,6,'2020-06-18 10:05:21',0);
+INSERT INTO `data_source` VALUES (3,3,12,'2020-06-18 10:06:21',0);
+
+-- ----------------------------
 -- Table structure for equipment
 -- ----------------------------
 DROP TABLE IF EXISTS `equipment`;
@@ -46,6 +53,16 @@ CREATE TABLE `equipment`  (
   `last_online` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '最后上线时间',
   PRIMARY KEY (`eid`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic ;
+
+-- ----------------------------
+-- Records of equipment
+-- ----------------------------
+INSERT INTO `equipment` (`pid`,`ename`,`remark_name`,`status`) VALUES (1, 'shebei1', '', 1);
+INSERT INTO `equipment` (`pid`,`ename`,`remark_name`,`status`) VALUES (2, 'shebei2', '', 1);
+INSERT INTO `equipment` (`pid`,`ename`,`remark_name`,`status`) VALUES (3, 'shebei3', '', 1);
+INSERT INTO `equipment` (`pid`,`ename`,`remark_name`,`status`) VALUES (4, 'shebei4', '', 1);
+INSERT INTO `equipment` (`pid`,`ename`,`remark_name`,`status`) VALUES (5, 'shebei5', '', 1);
+
 
 -- ----------------------------
 -- Table structure for product
@@ -61,6 +78,15 @@ CREATE TABLE `product`  (
   `product_description` varchar(225) COMMENT '产品描述',
   PRIMARY KEY (`pid`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic ;
+
+-- ----------------------------
+-- Records of product
+-- ----------------------------
+INSERT INTO `product` VALUES (1,'chanpin1',0,0,0,0,'wu');
+INSERT INTO `product` VALUES (2,'chanpin2',0,0,0,0,'wu');
+INSERT INTO `product` VALUES (3,'chanpin3',0,0,0,0,'wu');
+INSERT INTO `product` VALUES (4,'chanpin4',0,0,0,0,'wu');
+
 
 -- ----------------------------
 -- Table structure for attribute
@@ -80,6 +106,13 @@ CREATE TABLE `attribute`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of attribute
+-- ----------------------------
+INSERT INTO `attribute` VALUES (1,0,'length','len','integer',1,'100',0,0);
+INSERT INTO `attribute` VALUES (2,0,'size','size','double',0,0,1,200);
+INSERT INTO `attribute` VALUES (3,0,'color','col','text',1,'2',0,0);
+
+-- ----------------------------
 -- Table structure for TSL
 -- ----------------------------
 DROP TABLE IF EXISTS `TSL`;
@@ -88,6 +121,17 @@ CREATE TABLE `TSL`  (
   `aid` int(11) NOT NULL COMMENT '属性id',
   PRIMARY KEY (`pid`, `aid`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of TSL
+-- ----------------------------
+INSERT INTO `TSL` VALUES (1,1);
+INSERT INTO `TSL` VALUES (1,2);
+INSERT INTO `TSL` VALUES (2,2);
+INSERT INTO `TSL` VALUES (2,3);
+INSERT INTO `TSL` VALUES (3,3);
+INSERT INTO `TSL` VALUES (3,1);
+INSERT INTO `TSL` VALUES (4,1);
 
 
 SET FOREIGN_KEY_CHECKS = 1;

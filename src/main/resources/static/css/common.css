@@ -20,7 +20,6 @@ ul {
 .card {
     background: #fafafa;
     border-radius: 2px;
-    box-shadow: #ccc 1px 0 0 0;
 }
 .title {
     font-size: 21px;

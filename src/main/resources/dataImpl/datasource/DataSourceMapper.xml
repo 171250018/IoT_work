@@ -34,7 +34,7 @@
     </select>
 
     <select id="selectAllDataBase" resultMap="DataSource">
-        select * from data_source limit #{begin},10
+        select * from data_source where status=0 limit #{begin},10
     </select>
 
 

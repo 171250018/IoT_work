@@ -19,7 +19,7 @@
     <!-- 引入js脚本文件 -->
     <script src="/js/request.js"></script>
     <script src="/js/index.js"></script>
-    <script src="/js/adminMovieManage.js"></script>
+    <script src="/js/dataSourceList.js"></script>
 </head>
 <body>
 <div class="main-container">
@@ -54,7 +54,7 @@
             <!--按钮/筛选/搜索-->
             <div class="func-data">
                 <div class="data-btn">
-                    <button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#movieModal"><i class="icon-plus-sign"></i> 添加设备数据源</button>
+                    <button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#datasourceModal"><i class="icon-plus-sign"></i> 添加设备数据源</button>
                 </div>
                 <div class="data-choose">
                     <select class="selection">
@@ -67,21 +67,6 @@
                         <option value="10年">10年</option>
                         <option value="永久（102年）">永久（102年）</option>
                     </select>
-                    <!--
-                    <button class="nav-user-container btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="avatar-sm" src="/images/defaultAvatar.jpg" />
-                        <span id="user-nickname" class="gray-text" style="vertical-align: middle">全部存储周期&nbsp;<span class="caret"></span></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="/user/buy">3个月</a></li>
-                        <li><a href="/user/unpayTicket">6个月</a></li>
-                        <li><a href="/user/member">1年</a></li>
-                        <li><a href="/user/salesLog">3年</a></li>
-                        <li id="logout"><a href="#">5年</a></li>
-                        <li><a href="/user/salesLog">10年</a></li>
-                        <li><a href="/user/salesLog">永久（102年）</a></li>
-                    </ul>
-                    -->
                 </div>
                 <div class="data-search">
                     <input type="text" class="form-control" id="search-input" placeholder="请输入产品名称">
@@ -105,28 +90,25 @@
                                 <th>操作</th>
                             </tr>
                             </thead>
-                            <tr>
-                                <th>try1</th>
-                                <th>3个月</th>
-                                <th>2020-06-12 16:10:47</th>
-                                <th><a class="link-func">时序透视</a> | <a class="link-func">可视化分析</a> | <a class="link-func">SQL分析</a> | <a class="link-func">修改周期</a> | <a class="link-func">删除</a> </th>
-                            </tr>
-                            <tr>
-                                <th>try2</th>
-                                <th>6个月</th>
-                                <th>2020-05-06 21:56:29</th>
-                                <th><a class="link-func">时序透视</a> | <a class="link-func">可视化分析</a> | <a class="link-func">SQL分析</a> | <a class="link-func">修改周期</a> | <a class="link-func">删除</a> </th>
-                            </tr>
-                            <tbody id="user-unpay-ticket-list">
+                            <tbody>
+                                <tr>
+                                    <th>try1</th>
+                                    <th>3个月</th>
+                                    <th>2020-06-12 16:10:47</th>
+                                    <th><a class="link-func">时序透视</a> | <a class="link-func">可视化分析</a> | <a class="link-func">SQL分析</a> | <a class="link-func">修改周期</a> | <a class="link-func">删除</a> </th>
+                                </tr>
+                                <tr>
+                                    <th>try2</th>
+                                    <th>6个月</th>
+                                    <th>2020-05-06 21:56:29</th>
+                                    <th><a class="link-func">时序透视</a> | <a class="link-func">可视化分析</a> | <a class="link-func">SQL分析</a> | <a class="link-func">修改周期</a> | <a class="link-func">删除</a> </th>
+                                    </tr>
+                            </tbody>
+                            <tbody id="data-source-list">
                             </tbody>
                         </table>
-                        <div id="unpay-ticket-total-container" style="text-align: right; font-size : 18px; display: none">合计：<span id="unpay-ticket-total" >0.00</span>元</div>
-                    </div>
-                    <div id="user-umpay-ticket-footer" style="display: none">
-                        <div style="text-align: right">
-                            <button id="user-unpay-confirm-button" type="button" style="margin: 5px" disabled="disabled" class="refund-button btn btn-success" data-toggle="modal" data-target="#buyModal" onclick="pay()">立即付款</button>
-                            <button id="user-unpay-delete-button" type="button" disabled="disabled" class="refund-button btn btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="showConfirmDetail()">立即删除</button>
-                        </div>
+                        <button  id="last-page-btn" type="button" class="btn btn-primary last-page" data-backdrop="static" data-toggle="modal" data-target="#movieModal" >上一页</button>
+                        <button  id="next-page-btn" type="button" class="btn btn-primary next-page" data-backdrop="static" data-toggle="modal" data-target="#movieModal" >下一页</button>
                     </div>
                 </div>
             </div>
@@ -136,6 +118,50 @@
         </ul>
     </div>
 </div>
+
+<div class="modal fade" id="datasourceModal" tabindex="-1" role="dialog" aria-labelledby="hallModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加设备数据源</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" ><span class="error-text">*</span>产品名</label>
+                        <div class="col-sm-10">
+                            <select id="product-sec" class="add-selection">
+                                <option value="0">请选择产品</option>
+                                <option value="12">test1</option>
+                                <option value="13">test2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" ><span class="error-text">*</span>存储周期</label>
+                        <div class="col-sm-10">
+                            <select id="month-sec" class="add-selection">
+                                <option value="1224">永久（102年）</option>
+                                <option value="3">3个月</option>
+                                <option value="6">6个月</option>
+                                <option value="12">1年</option>
+                                <option value="36">3年</option>
+                                <option value="60">5年</option>
+                                <option value="120">10年</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="datasource-add-form-btn">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 
 </html>

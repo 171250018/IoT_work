@@ -95,6 +95,17 @@
     border-radius: 4px;
 }
 
+.add-selection{
+    width: 54%;
+    height: auto;
+    text-align: center;
+    padding: 8px;
+    font-size: 14px;
+    border-color: #cccccc;
+    border-radius: 4px;
+}
+
 .data-form{
     clear: both;
+    height: 100%;
 }
