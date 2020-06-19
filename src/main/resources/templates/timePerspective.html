@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>时序透视</title>
+    <!-- 引入css样式文件 -->
+    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/movieList.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/userMovie.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/chart.css"/>
+    <!-- Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <!-- font-asesome图标库 -->
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>
+
+    <!-- jquery -->
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <!-- Bootstrap 核心 JavaScript 文件 -->
+    <script src="/js/bootstrap.js"></script>
+    <!-- 引入js脚本文件 -->
+    <script src="/js/request.js"></script>
+    <script src="/js/index.js"></script>
+    <script src="/js/timeChange.js"></script>
+</head>
+
+
+<body>
+<div class="main-container">
+    <div class="content-container">
+        <div class="show-box">
+            <!--标题-->
+            <div class="content-header">
+                <div class="title gray-text" id="big-title">数据源</div>
+            </div>
+            <!--备注-->
+            <div style="padding: 20px;">
+                <div class="remark">
+                    <p style="font-size:15px">时序透视说明</p>
+                    <p style="font-size:13px">可以选择产品属性和时间，观察该属性值的动态变化</p>
+                </div>
+            </div>
+
+            <!--按钮/筛选/搜索-->
+            <div class="func-data">
+                <div class="sec-choose">
+                    <select class="selection" id="sec-attr">
+                        <option value="0">全部属性</option>
+                        <option value="3">3个月</option>
+                        <option value="6">6个月</option>
+                        <option value="12">1年</option>
+                        <option value="36">3年</option>
+                        <option value="60">5年</option>
+                        <option value="120">10年</option>
+                        <option value="1024">永久（102年）</option>
+                    </select>
+                </div>
+                <div class="sec-choose">
+                    <select class="selection" id="time-start">
+                        <option value="0">起始时间</option>
+                        <option value="3">3个月</option>
+                        <option value="6">6个月</option>
+                        <option value="12">1年</option>
+                        <option value="36">3年</option>
+                        <option value="60">5年</option>
+                        <option value="120">10年</option>
+                        <option value="1024">永久（102年）</option>
+                    </select>
+                </div>
+                <div class="sec-choose">
+                    <select class="selection" id="time-end">
+                        <option value="0">截止时间</option>
+                        <option value="3">3个月</option>
+                        <option value="6">6个月</option>
+                        <option value="12">1年</option>
+                        <option value="36">3年</option>
+                        <option value="60">5年</option>
+                        <option value="120">10年</option>
+                        <option value="1024">永久（102年）</option>
+                    </select>
+                </div>
+            </div>
+
+            <!--图表-->
+            <div class="for-chart">
+                <canvas id="mc" class="chart" width="500" height="400" style="border:1px solid black"></canvas>
+                <script type="text/javascript">
+                    var canvas=document.getElementById('mc');
+                    var ctx=canvas.getContext('2d');
+                    ctx.beginPath();
+
+                    //坐标轴
+                    ctx.moveTo(30,20);
+                    ctx.lineWidth="1";
+                    ctx.lineTo(30,380);
+                    ctx.lineTo(400,380);
+                    //ctx.closePath();
+
+                    //横线
+                    ctx.strokeStyle="#999";
+                    for(var i=0;i<7;i++){
+                        ctx.moveTo(30,30+50*i);
+                        ctx.lineTo(400,30+50*i);
+                    }
+
+                    //折线
+                    ctx.moveTo(100,300);
+                    ctx.lineTo(200,200);
+                    ctx.lineTo(280,280);
+                    ctx.lineTo(380,30);
+                    ctx.stroke();
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+
+</html>

@@ -6,6 +6,7 @@ import com.seciii.oasis.data.Product.ProductMapper;
 import com.seciii.oasis.po.*;
 import com.seciii.oasis.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -44,15 +45,10 @@ public class DataSourceServiceImpl implements DataSourceService {
         return ResponseVO.buildSuccess(dataSourceVO);
     }
 
-    /**
-     * 根据给定的did和month，修改数据源存储周期，返回数据源结果
-     * 逻辑是搜索作者所著论文的关键字
-     * @param did
-     * @param month
-     * @return
-     */
     @Override
-    public ResponseVO updateDataSource(int did,int month){
+    public ResponseVO updateDataSource(UpdateForm updateForm){
+        int did=updateForm.getDid();
+        int month=updateForm.getMonth();
         DataSource dataSource=dataSourceMapper.getDataSourceById(did);
         if(dataSource==null){
             return ResponseVO.buildFailure("数据源不存在");
@@ -92,9 +88,14 @@ public class DataSourceServiceImpl implements DataSourceService {
      */
 
     @Override
-    public ResponseVO searchDataSourceByPname(String pname,int page){
+    public ResponseVO searchDataSourceByPname(String pname,int time ,int page){
         List<DataSource> dataSourceList=new ArrayList<DataSource>();
-        dataSourceList=dataSourceMapper.searchDataSourceByPname(pname,(page-1)*10);
+        if(time==0){
+            dataSourceList=dataSourceMapper.searchDataSourceByPname(pname,(page-1)*10);
+        }
+        else{
+            dataSourceList=dataSourceMapper.searchDataSourceByPnameAndTime(pname,time,(page-1)*10);
+        }
         List<DataSourceVO> res=new ArrayList<DataSourceVO>();
         if(dataSourceList==null||dataSourceList.size()==0){
             return ResponseVO.buildFailure("没有找到符合条件的结果");
@@ -139,7 +140,7 @@ public class DataSourceServiceImpl implements DataSourceService {
         dataSourceVO.setPid(dataSource.getPid());
         dataSourceVO.setPname(productMapper.getProductById(dataSource.getPid()).getPname());
         dataSourceVO.setStatus(dataSource.getStatus());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss");
         String time=dataSource.getStartTime().format(formatter);
         dataSourceVO.setStartTime(time);
         return dataSourceVO;

@@ -16,6 +16,10 @@
         values (#{pid,jdbcType=INTEGER}, #{month,jdbcType=INTEGER}, CURRENT_TIMESTAMP(), #{status,jdbcType=INTEGER})
     </insert>
 
+    <update id="updateDataSource">
+        update data_source set storage_cycle=#{month} where did=#{did}
+    </update>
+
 
     <select id="getDataSourceById" resultMap="DataSource">
         select * from data_source where did=#{did}
@@ -30,12 +34,20 @@
     </delete>
 
     <select id="searchDataSourceByPname" resultMap="DataSource">
-        select * from data_source where pid in (select pid from product where pname like concat('%',#{pname},'%')) limit #{begin},10
+        select * from data_source where pid in (select pid from product where pname like concat('%',#{pname},'%')) and status=0 limit #{begin},10
+    </select>
+
+    <select id="searchDataSourceByPnameAndTime" resultMap="DataSource">
+        select * from data_source where pid in (select pid from product where pname like concat('%',#{pname},'%')) and storage_cycle=#{time} and status=0 limit #{begin},10
     </select>
 
     <select id="selectAllDataBase" resultMap="DataSource">
         select * from data_source where status=0 limit #{begin},10
     </select>
+
+    <update id="cleanExpiredDataSource">
+        update data_source SET  status =1 WHERE TIMESTAMPDIFF(MONTH,DATE_FORMAT(start_time, '%Y-%m-%d %H:%i:%S'),DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%S'))>=storage_cycle and status=0;
+    </update>
 
 
 </mapper>

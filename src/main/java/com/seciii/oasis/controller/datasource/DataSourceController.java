@@ -3,6 +3,7 @@ package com.seciii.oasis.controller.datasource;
 import com.seciii.oasis.bl.datasource.DataSourceService;
 import com.seciii.oasis.vo.DataSourceForm;
 import com.seciii.oasis.vo.ResponseVO;
+import com.seciii.oasis.vo.UpdateForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +25,8 @@ public class DataSourceController {
     }
 
     @RequestMapping(value = "/updateDataSource")
-    public ResponseVO updateDataSource(@RequestParam("did")int did,@RequestParam("month")int month){
-        return dataSourceService.updateDataSource(did,month);
+    public ResponseVO updateDataSource(@Valid @RequestBody UpdateForm updateForm){
+        return dataSourceService.updateDataSource(updateForm);
     }
 
     @RequestMapping(value = "/deleteDataSource")
@@ -34,8 +35,8 @@ public class DataSourceController {
     }
 
     @RequestMapping(value = "/searchDataSource")
-    public ResponseVO searchDataSource(@RequestParam("pname") String pname,int page){
-        return dataSourceService.searchDataSourceByPname(pname,page);
+    public ResponseVO searchDataSource(@RequestParam("pname") String pname, @RequestParam("time") int time,int page){
+        return dataSourceService.searchDataSourceByPname(pname,time,page);
     }
 
     @RequestMapping(value = "/getDataSource")

@@ -1,0 +1,21 @@
+.for-chart{
+    height: 100%;
+    margin-bottom: 40px;
+    background-color: #fafafa;
+    margin-top:35px;
+}
+
+.chart{
+    width: 85%;
+    height:450px;
+    border:1px solid black;
+    margin-bottom:40px;
+    padding: 25px;
+    margin-left: 45px;
+    margin-right: 25px;
+}
+
+.sec-choose{
+    margin-left:70px;
+    float:left;
+}

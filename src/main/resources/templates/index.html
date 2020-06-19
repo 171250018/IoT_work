@@ -57,15 +57,15 @@
                     <button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#datasourceModal"><i class="icon-plus-sign"></i> 添加设备数据源</button>
                 </div>
                 <div class="data-choose">
-                    <select class="selection">
-                        <option value="全部存储周期">全部存储周期</option>
-                        <option value="3个月">3个月</option>
-                        <option value="6个月">6个月</option>
-                        <option value="1年">1年</option>
-                        <option value="3年">3年</option>
-                        <option value="5年">5年</option>
-                        <option value="10年">10年</option>
-                        <option value="永久（102年）">永久（102年）</option>
+                    <select class="selection" id="sec-time">
+                        <option value="0">全部存储周期</option>
+                        <option value="3">3个月</option>
+                        <option value="6">6个月</option>
+                        <option value="12">1年</option>
+                        <option value="36">3年</option>
+                        <option value="60">5年</option>
+                        <option value="120">10年</option>
+                        <option value="1024">永久（102年）</option>
                     </select>
                 </div>
                 <div class="data-search">
@@ -157,6 +157,79 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary" id="datasource-add-form-btn">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="datasourceModifyModal" tabindex="-1" role="dialog" aria-labelledby="movieModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">修改设备数据源</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" ><span class="error-text">*</span>产品名</label>
+                        <div class="col-sm-10">
+                            <p class="add-selection" id="product-res"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" ><span class="error-text">*</span>存储周期</label>
+                        <div class="col-sm-10">
+                            <select id="month-res" class="add-selection">
+                                <option value="1224">永久（102年）</option>
+                                <option value="3">3个月</option>
+                                <option value="6">6个月</option>
+                                <option value="12">1年</option>
+                                <option value="36">3年</option>
+                                <option value="60">5年</option>
+                                <option value="120">10年</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="datasource-edit-form-btn">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--已修改 添加下架电影的提示框-->
+<div class="modal fade" id="datasourceOffBatchModal" tabindex="-1" role="dialog" aria-labelledby="MovieOffBatchModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" ><span class="error-text">*</span>产品名</label>
+                        <div class="col-sm-10">
+                            <p class="add-selection" id="product-del"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" ><span class="error-text">*</span>存储周期</label>
+                        <div class="col-sm-10">
+                            <p class="add-selection" id="month-del"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-10 text-danger">你真的要删除这个数据源吗</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="datasource-off-batch-btn">确认</button>
             </div>
         </div>
     </div>

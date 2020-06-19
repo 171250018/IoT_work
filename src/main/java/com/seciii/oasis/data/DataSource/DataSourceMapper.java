@@ -3,6 +3,7 @@ package com.seciii.oasis.data.DataSource;
 import com.seciii.oasis.po.DataSource;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.List;
 
@@ -21,6 +22,11 @@ public interface DataSourceMapper {
 
     List<DataSource> searchDataSourceByPname(String pname,int begin);
 
+    List<DataSource> searchDataSourceByPnameAndTime(String pname,int time,int begin);
+
     List<DataSource> selectAllDataBase(int begin);
+
+    @Scheduled(cron = "0/1 * * * * ?")
+    void cleanExpiredDataSource();
 
 }

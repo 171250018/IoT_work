@@ -1,61 +1,110 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Welcome</title>
-    <!-- 引入css样式文件 -->
-    <link rel="stylesheet" type="text/css" href="/css/index.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
-    <!-- Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
-    <!-- font-asesome图标库 -->
-    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>
+    <meta charset="utf-8" />
+    <title>jqPlot图表Demo</title>
+    <link rel="stylesheet" type="text/css" href="js/jqPlot/1.0.4/jquery.jqplot.min.css"/>
+    <style type="text/css">
+            .chart-title{
+                background-color: #999999;
+                margin-bottom: 10px;
+                line-height: 30px;
+                padding-left: 10px;
+                background-color: #efefef;
+                border-bottom:1px solid #dddddd;
+                font-weight: bold;
+            }
 
-    <!-- jquery -->
-    <script src="/js/jquery.js"></script>
-    <!-- 引入js脚本文件 -->
-    <script src="/js/signUp.js"></script>
-    <!-- Bootstrap 核心 JavaScript 文件 -->
-    <script src="/js/bootstrap.js"></script>
+            #chart1{
+                border: 1px solid #dddddd;
+            }
+        </style>
+    <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="js/jqPlot/1.0.4/excanvas.js"></script><![endif]-->
+    <script src="http://libs.baidu.com/jquery/1.8.2/jquery.min.js"></script>
+    <script src="js/jqPlot/1.0.4/jquery.jqplot.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jqPlot/1.0.4/plugins/jqplot.canvasTextRenderer.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jqPlot/1.0.4/plugins/jqplot.canvasAxisLabelRenderer.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jqPlot/1.0.4/plugins/jqplot.cursor.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jqPlot/1.0.4/plugins/jqplot.highlighter.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+            $(function(){
+                /**
+                 * 第一个参数为body中div的id值
+                 * 第二个参数为要绘制的线形图中各拐点的取值
+                 * */
+                var data = [[38, 3, 9, 8, 49, 27, 14, 46, 32, 4,
+                             12, 6, 47, 15, 24, 39, 16, 48, 5, 6,
+                             6, 43, 42, 2, 29, 37, 21, 28, 40, 17, 3],
+                            [45, 24, 24, 29, 3, 19, 32, 45, 41, 8,
+                             34, 17, 1, 45, 37, 47, 34, 30, 31, 10,
+                             29, 17, 5, 23, 41, 49, 25, 34, 4, 13, 49],
+                            [43, 23, 37, 12, 26, 11, 29, 29, 22, 27,
+                             25, 5, 18, 34, 20, 3, 8, 16, 41, 19,
+                             9, 5, 16, 30, 13, 44, 22, 29, 5, 23, 13]
+                            ]
 
-    <script src="/js/request.js"></script>
+                var plot = $.jqplot('chart1', data, {
+                    title:{         // 标题属性
+                        text:'<div class="chart-title">2014年5月广告位投放数量趋势图<div>',           // 标题文本
+                        show:true,              // 是否阴影
+                        fontFamily:'微软雅黑',  // 标题字体
+                        fontSize:14,            // 标题字体大小
+                        textAlign:'left',       // 标题对齐方式
+                        textColor:'#515151',    // 标题颜色（也可以写作属性color）
+                        escapeHtml:false        // 是否转义HTML字符，值为false时，可以在text属性中使用HTML代码
+                    },
+                    axesDefaults:{  // 默认坐标轴属性
+                        min:0,
+                        tickOptions:{
+                            showMark:false
+                        }
+                    },
+                    axes:{          // 具体坐标轴属性
+                        xaxis:{
+                            label:'日期',
+                            ticks:[[1,'05/01'], [5,'05/05'], [10,'05/10'], [15,'05/15'], [20,'05/20'], [25,'05/25'], [30,'05/30']]
+                        },
+                        yaxis: {
+                            label: '投放数量'
+                        }
+                    },
+                    legend:{        // 图例属性
+                        show:true
+                    },
+                    grid:{          // 背景网格属性
+                        borderWidth:1,
+                        shadow:false
+                    },
+                    seriesDefaults:{// 默认数据序列属性
+                        lineWidth:1,
+                        markerOptions:{
+                            show:true
+                        }
+                    },
+                    series:[        // 具体数据序列属性
+                        {
+                            color:'#FF6666',
+                            label:'CPC'
+                        },{
+                            color:'#0066CC',
+                            label:'CPT'
+                        },{
+                            color:'#99CC66',
+                            label:'CPM'
+                        }
+                    ],
+                    highlighter:{
+                        show:true,
+                        tooltipAxes:'y',
+                        useAxesFormatters:false,
+                        tooltipFormatString:'投放量：%d'
+                    }
+                });
+            });
+        </script>
 </head>
 <body>
-<div id="main-container">
-    <div id="login-container" class="card">
-        <h3 class="title">注册</h3>
-        <form id="login-form">
-            <div class="input-interval">
-                <div class="input-group" id="basic-addon1">
-                    <span class="input-group-addon"><i class="icon-user"></i></span>
-                    <input id="signUp-name" type="text" class="form-control" placeholder="请输入用户名" aria-describedby="basic-addon1">
-                </div>
-                <p id="signUp-name-error" class="notice">用户名长度应在4-10位内</p>
-            </div>
-
-            <div class="input-interval">
-                <div class="input-group " id="basic-addon2">
-                    <span class="input-group-addon"><i class="icon-lock"></i></span>
-                    <input id="signUp-password" type="password" class="form-control" placeholder="请输入密码" aria-describedby="basic-addon2">
-                </div>
-                <p id="signUp-password-error" class="notice">密码长度应在6-12位内</p>
-            </div>
-
-            <div class="input-interval">
-                <div class="input-group " id="basic-addon3">
-                    <span class="input-group-addon"><i class="icon-lock"></i></span>
-                    <input id="signUp-second-password" type="password" class="form-control" placeholder="请再次确认密码" aria-describedby="basic-addon3">
-                </div>
-                <p id="signUp-second-password-error" class="notice">请再次输入密码</p>
-            </div>
-
-            <div class="form-group">
-                <p>已有账号? <a href="/index">&nbsp;立即登录</a>
-            </div>
-
-            <button id="signUp-btn" type="button" class="btn btn-primary input-interval btn-block">注 册</button>
-        </form>
-    </div>
-</div>
+<!-- 用于绘制图表，id在JS代码中会用到 -->
+<div id="chart1" style="width:800px;height:400px;"></div>
 </body>
-
 </html>

@@ -15,6 +15,11 @@ public class ViewController {
         return "index";
     }
 
+    @RequestMapping(value = "/datasource/time")
+    public String getDataSourceTime() {
+        return "timePerspective";
+    }
+
     @RequestMapping(value = "/signUp")
     public String getSignUp() {
         return "signUp";
