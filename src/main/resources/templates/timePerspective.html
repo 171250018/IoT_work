@@ -50,110 +50,17 @@
             $(function(){
                 var did = parseInt(window.location.href.split('?')[1].split('&')[0].split('=')[1]);
                 var pname=window.location.href.split('?')[1].split('&')[1].split('=')[1];
+                var allData;
 
                 //取值
-                 function getDataSourceList(page) {
-                    getRequest(
-                        '/dataSource/getAllDataSource?page='+page,
-                        function (res) {
-                            renderDataSourceList(res.content);
-                        },
-                        function (error) {
-                            alert(error);
-                        });
-                }
 
-                $("#next-page-btn").click(function () {
-                    page=page+1;
-                    if(searchcont!=''||searchtime!=0){
-                        getSearchList(searchcont,searchtime,page);
-                    }
-                    else{
-                        getDataSourceList(page);
-                    }
-                });
 
                 /**
                  * 第一个参数为body中div的id值
                  * 第二个参数为要绘制的线形图中各拐点的取值
                  * */
-                var data = [
-                            [38, 3, 9, 8, 49, 27, 14, 46, 32, 4,
-                             12, 6, 47, 15, 24, 39, 16, 48, 5, 6,
-                             6, 43, 42, 2, 29, 37, 21, 28, 40, 17, 3],
-                            [45, 24, 24, 29, 3, 19, 32, 45, 41, 8,
-                             34, 17, 1, 45, 37, 47, 34, 30, 31, 10,
-                             29, 17, 5, 23, 41, 49, 25, 34, 4, 13, 49],
-                            [43, 23, 37, 12, 26, 11, 29, 29, 22, 27,
-                             25, 5, 18, 34, 20, 3, 8, 16, 41, 19,
-                             9, 5, 16, 30, 13, 44, 22, 29, 5, 23, 13]
-                            ];
 
-                var plot = $.jqplot('chart1', data, {
-                    title:{         // 标题属性
-                        text:'<div class="chart-title">时序透视图<div>',           // 标题文本
-                        show:true,              // 是否阴影
-                        fontFamily:'微软雅黑',  // 标题字体
-                        fontSize:14,            // 标题字体大小
-                        textAlign:'left',       // 标题对齐方式
-                        textColor:'#515151',    // 标题颜色（也可以写作属性color）
-                        escapeHtml:false        // 是否转义HTML字符，值为false时，可以在text属性中使用HTML代码
-                    },
-                    axesDefaults:{  // 默认坐标轴属性
-                        min:0,
-                        tickOptions:{
-                            showMark:false
-                        }
-                    },
-                    axes:{          // 具体坐标轴属性
-                        xaxis:{
-                            label:'日期',
-                            ticks:[
-                            [1,'05/01'],
-                            [5,'05/05'],
-                            [10,'05/10'],
-                            [15,'05/15'],
-                            [20,'05/20'],
-                            [25,'05/25'],
-                            [30,'05/30']
-                            ]
-                        },
-                        yaxis: {
-                            label: '属性值'
-                        }
-                    },
-                    legend:{        // 图例属性
-                        show:true
-                    },
-                    grid:{          // 背景网格属性
-                        borderWidth:1,
-                        shadow:false
-                    },
-                    seriesDefaults:{// 默认数据序列属性
-                        lineWidth:1,
-                        markerOptions:{
-                            show:true
-                        }
-                    },
-                    series:[        // 具体数据序列属性
-                        {
-                            color:'#FF6666',
-                            label:'CPC'
-                        },{
-                            color:'#0066CC',
-                            label:'CPT'
-                        },{
-                            color:'#99CC66',
-                            label:'CPM'
-                        }
-                    ],
-                    highlighter:{
-                        show:true,
-                        tooltipAxes:'y',
-                        useAxesFormatters:false,
-                        tooltipFormatString:'投放量：%d'
-                    }
-                });
+
             });
         </script>
 </head>

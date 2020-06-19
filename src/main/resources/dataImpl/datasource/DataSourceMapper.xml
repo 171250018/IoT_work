@@ -77,8 +77,8 @@
         select aid,aname from attribute where aid in (select aid from tsl where pid in (select pid from data_source where did=#{did} and status=0));
     </select>
 
-    <select id="selectDatasByTime" resultMap="DataSource">
-        select * from datas where did=#{did} and aid=#{aid} and data_time between #{start} and #{end}
+    <select id="selectDatasByTime" resultMap="Data">
+        select * from datas where did=#{did} and aid=#{aid} and data_time between #{start} and #{end} order by data_time
     </select>
 
     <select id="selectAttrById" resultMap="Attr">

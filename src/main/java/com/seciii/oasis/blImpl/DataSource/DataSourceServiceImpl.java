@@ -143,13 +143,19 @@ public class DataSourceServiceImpl implements DataSourceService {
 
     @Override
     public ResponseVO getDatasByTime(SearchDatasForm searchDatasForm){
+        //System.out.println("有没有运行到我？");
         List<Integer> aids=searchDatasForm.getAttrlist();
         int did=searchDatasForm.getDataId();
         Date start=searchDatasForm.getStart();
         Date end=searchDatasForm.getEnd();
         List<AttrDataVO> attrDataVOList=new ArrayList<AttrDataVO>();
+
+        //System.out.println(aids.size());
+        //System.out.println(aids.get(1));
         for(int aid:aids){
             List<Data> dataList=dataSourceMapper.selectDatasByTime(did,aid,start,end);
+            //System.out.println(dataList.size());////////////////////////////////
+            //System.out.println(dataList);///////////////////////////////////////
             Attr a=dataSourceMapper.selectAttrById(aid);
             AttrDataVO aVO=a.getVO();
             aVO.setValues(dataList);
@@ -162,6 +168,16 @@ public class DataSourceServiceImpl implements DataSourceService {
         allDataVO.setPid(p.getPid());
         allDataVO.setPname(p.getPname());
         allDataVO.setAttrDataVOList(attrDataVOList);
+
+        //System.out.println(allDataVO.getDid());
+        //System.out.println(allDataVO.getPid());
+        //System.out.println(allDataVO.getPname());
+        //System.out.println(allDataVO.getAttrDataVOList().size());
+        //System.out.println(allDataVO.getAttrDataVOList().get(0).getAid());
+        //System.out.println(allDataVO.getAttrDataVOList().get(1).getAid());
+        //System.out.println(allDataVO.getAttrDataVOList().get(0).getValues().size());
+        //System.out.println(allDataVO.getAttrDataVOList().get(0).getValues().get(0).getValue());
+        //System.out.println(allDataVO.getAttrDataVOList().get(0).getValues().get(1).getValue());
         return ResponseVO.buildSuccess(allDataVO);
     }
 
