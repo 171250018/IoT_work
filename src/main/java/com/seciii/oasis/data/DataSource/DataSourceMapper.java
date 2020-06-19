@@ -1,14 +1,14 @@
 package com.seciii.oasis.data.DataSource;
 
-import com.seciii.oasis.po.Attr;
-import com.seciii.oasis.po.Data;
-import com.seciii.oasis.po.DataSource;
+import com.seciii.oasis.po.*;
 import com.seciii.oasis.vo.AttrSimpleVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Mapper
@@ -38,5 +38,9 @@ public interface DataSourceMapper {
     List<Data> selectDatasByTime(int did, int aid, Date start,Date end);
 
     Attr selectAttrById(int aid);
+
+    List<HashMap> selectDistinctTimeByDid(int did);
+
+    List<DataForAid> selectAidDataByTime(int did,Timestamp time);
 
 }

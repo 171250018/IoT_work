@@ -22,6 +22,12 @@
         <result column="data_time" jdbcType="TIMESTAMP" property="dataTime"/>
     </resultMap>
 
+    <resultMap id="DataForAid" type="com.seciii.oasis.po.DataForAid">
+        <id column="aid" jdbcType="INTEGER" property="aid"/>
+        <result column="aname" jdbcType="VARCHAR" property="aname"/>
+        <result column="arr_value" jdbcType="VARCHAR" property="value"/>
+    </resultMap>
+
     <resultMap id="Attr" type="com.seciii.oasis.po.Attr">
         <id column="aid" jdbcType="INTEGER" property="aid"/>
         <result column="func_type" jdbcType="INTEGER" property="funcType"/>
@@ -83,6 +89,14 @@
 
     <select id="selectAttrById" resultMap="Attr">
         select * from attribute where aid=#{aid}
+    </select>
+
+    <select id="selectDistinctTimeByDid" resultType="java.util.HashMap">
+        select distinct(data_time) as data_time from datas where did=#{did} order by data_time desc
+    </select>
+
+    <select id="selectAidDataByTime" resultMap="DataForAid">
+        select d.aid ,a.aname,d.arr_value from datas d,attribute a where a.aid=d.aid and d.did=#{did} and d.data_time=#{time}
     </select>
 
 </mapper>

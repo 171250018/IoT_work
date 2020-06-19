@@ -29,7 +29,7 @@ $(document).ready(function () {
                      +"<th>"+log.pname+"</th>"
                      +"<th>"+log.month+"个月"+"</th>"
                      +"<th>"+log.startTime+"</th>"
-                     +"<th>"+"<a class='link-func' id='time-act' href='/datasource/time?did="+log.did+"&pname="+log.pname+"'>时序透视</a> | <a class='link-func' id='show-act'>可视化分析</a> | <a class='link-func' id='sql-act' href='/admin/movie/manage'>SQL分析</a> | <a class='link-func adjust-act'  data-backdrop='static' data-toggle='modal'  data-target='#datasourceModifyModal'>修改周期</a> | <a class='link-func delete-act'  data-backdrop='static' data-toggle='modal'  data-target='#datasourceOffBatchModal'>删除</a>"+"</th></tr>";
+                     +"<th>"+"<a class='link-func' id='time-act' href='/datasource/time?did="+log.did+"&pname="+log.pname+"'>时序透视</a> | <a class='link-func' id='show-act' href='/datasource/see?did="+log.did+"&pname="+log.pname+"'>可视化分析</a> | <a class='link-func adjust-act'  data-backdrop='static' data-toggle='modal'  data-target='#datasourceModifyModal'>修改周期</a> | <a class='link-func delete-act'  data-backdrop='static' data-toggle='modal'  data-target='#datasourceOffBatchModal'>删除</a>"+"</th></tr>";
             }
             else{
                 dataSourceStr +=
@@ -37,7 +37,7 @@ $(document).ready(function () {
                      +"<th>"+log.pname+"</th>"
                      +"<th>"+log.month/12+"年"+"</th>"
                      +"<th>"+log.startTime+"</th>"
-                     +"<th>"+"<a class='link-func' id='time-act' href='/datasource/time?did="+log.did+"&pname="+log.pname+"'>时序透视</a> | <a class='link-func' id='show-act'>可视化分析</a> | <a class='link-func' id='sql-act' href='/admin/movie/manage'>SQL分析</a> | <a class='link-func adjust-act'  data-backdrop='static' data-toggle='modal' data-target='#datasourceModifyModal'>修改周期</a> | <a class='link-func delete-act'  data-backdrop='static' data-toggle='modal'  data-target='#datasourceOffBatchModal'>删除</a>"+"</th></tr>";
+                     +"<th>"+"<a class='link-func' id='time-act' href='/datasource/time?did="+log.did+"&pname="+log.pname+"'>时序透视</a> | <a class='link-func' id='show-act' href='/datasource/see?did="+log.did+"&pname="+log.pname+"'>可视化分析</a> | <a class='link-func adjust-act'  data-backdrop='static' data-toggle='modal' data-target='#datasourceModifyModal'>修改周期</a> | <a class='link-func delete-act'  data-backdrop='static' data-toggle='modal'  data-target='#datasourceOffBatchModal'>删除</a>"+"</th></tr>";
             }
         });
         $('#data-source-list').html(dataSourceStr);

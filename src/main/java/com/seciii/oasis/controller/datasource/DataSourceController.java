@@ -1,10 +1,7 @@
 package com.seciii.oasis.controller.datasource;
 
 import com.seciii.oasis.bl.datasource.DataSourceService;
-import com.seciii.oasis.vo.DataSourceForm;
-import com.seciii.oasis.vo.ResponseVO;
-import com.seciii.oasis.vo.SearchDatasForm;
-import com.seciii.oasis.vo.UpdateForm;
+import com.seciii.oasis.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,6 +60,11 @@ public class DataSourceController {
     @RequestMapping(value = "/getDatasByTime")
     public ResponseVO getDatasByTime(@Valid @RequestBody SearchDatasForm searchDatasForm){
         return dataSourceService.getDatasByTime(searchDatasForm);
+    }
+
+    @RequestMapping(value = "/getDatasByAid")
+    public ResponseVO getDatasByAid(@Valid @RequestBody AidsForm aidsForm){
+        return dataSourceService.getDatasByAid(aidsForm);
     }
 
 }

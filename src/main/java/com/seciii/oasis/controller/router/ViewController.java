@@ -20,6 +20,11 @@ public class ViewController {
         return "timePerspective";
     }
 
+    @RequestMapping(value = "/datasource/see")
+    public String getDataSourceSaw() {
+        return "datasourceSaw";
+    }
+
     @RequestMapping(value = "/signUp")
     public String getSignUp() {
         return "signUp";

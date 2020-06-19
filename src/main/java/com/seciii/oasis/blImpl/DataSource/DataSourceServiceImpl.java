@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -140,6 +142,35 @@ public class DataSourceServiceImpl implements DataSourceService {
         }
         return ResponseVO.buildSuccess(attrSimpleVOList);
     }
+    @Override
+    public ResponseVO getDatasByAid(AidsForm aidsForm){
+        //System.out.println("有没有运行到我？");
+        List<Integer> aids=aidsForm.getAidList();
+        int did=aidsForm.getDataId();
+        List<DataForTimeVO> res=new ArrayList<DataForTimeVO>();
+        System.out.println("fffffffff");//////////////////////////////////////
+        System.out.println(did);
+        List<HashMap> times=dataSourceMapper.selectDistinctTimeByDid(did);
+        System.out.println("mmmmmmmmmmmm");/////////////////////////////////
+        for(int i=0;i<times.size();i++){
+            DataForTimeVO mid=new DataForTimeVO();
+            mid.setDid(did);
+            System.out.println(times.get(i));//////////////////////////////////
+            Timestamp t= (Timestamp) times.get(i).get("data_time");
+            mid.setTime(t);
+            List<DataForAid> dataForAidList=dataSourceMapper.selectAidDataByTime(did,t);
+            //去除不需要的aid
+            List<DataForAid> fin=new ArrayList<DataForAid>();
+            for(DataForAid d :dataForAidList){
+                if(aids.contains(d.getAid())){
+                    fin.add(d);
+                }
+            }
+            mid.setDataForAidList(fin);
+            res.add(mid);
+        }
+        return ResponseVO.buildSuccess(res);
+    }
 
     @Override
     public ResponseVO getDatasByTime(SearchDatasForm searchDatasForm){
@@ -168,16 +199,6 @@ public class DataSourceServiceImpl implements DataSourceService {
         allDataVO.setPid(p.getPid());
         allDataVO.setPname(p.getPname());
         allDataVO.setAttrDataVOList(attrDataVOList);
-
-        //System.out.println(allDataVO.getDid());
-        //System.out.println(allDataVO.getPid());
-        //System.out.println(allDataVO.getPname());
-        //System.out.println(allDataVO.getAttrDataVOList().size());
-        //System.out.println(allDataVO.getAttrDataVOList().get(0).getAid());
-        //System.out.println(allDataVO.getAttrDataVOList().get(1).getAid());
-        //System.out.println(allDataVO.getAttrDataVOList().get(0).getValues().size());
-        //System.out.println(allDataVO.getAttrDataVOList().get(0).getValues().get(0).getValue());
-        //System.out.println(allDataVO.getAttrDataVOList().get(0).getValues().get(1).getValue());
         return ResponseVO.buildSuccess(allDataVO);
     }
 
