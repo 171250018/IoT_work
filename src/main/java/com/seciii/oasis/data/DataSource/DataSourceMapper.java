@@ -1,10 +1,14 @@
 package com.seciii.oasis.data.DataSource;
 
+import com.seciii.oasis.po.Attr;
+import com.seciii.oasis.po.Data;
 import com.seciii.oasis.po.DataSource;
+import com.seciii.oasis.vo.AttrSimpleVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -28,5 +32,11 @@ public interface DataSourceMapper {
 
     @Scheduled(cron = "0/1 * * * * ?")
     void cleanExpiredDataSource();
+
+    List<AttrSimpleVO> selectAttrSimple(int did);
+
+    List<Data> selectDatasByTime(int did, int aid, Date start,Date end);
+
+    Attr selectAttrById(int aid);
 
 }

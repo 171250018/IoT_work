@@ -2,6 +2,7 @@ package com.seciii.oasis.bl.datasource;
 
 import com.seciii.oasis.vo.DataSourceForm;
 import com.seciii.oasis.vo.ResponseVO;
+import com.seciii.oasis.vo.SearchDatasForm;
 import com.seciii.oasis.vo.UpdateForm;
 
 public interface DataSourceService {
@@ -17,5 +18,9 @@ public interface DataSourceService {
     ResponseVO getDataSourceById(int did);
 
     ResponseVO getAllDataSource(int page);
+
+    ResponseVO getAttrList(int did);
+
+    ResponseVO getDatasByTime(SearchDatasForm searchDatasForm);
 
 }

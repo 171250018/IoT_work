@@ -12,5 +12,7 @@ public interface ProductMapper {
 
     Product getProductById(int pid);
 
+    Product getProductByDId(int did);
+
     List<ProductSimpleVO> getUnUsedProduct();
 }

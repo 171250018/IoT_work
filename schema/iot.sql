@@ -133,5 +133,32 @@ INSERT INTO `TSL` VALUES (3,3);
 INSERT INTO `TSL` VALUES (3,1);
 INSERT INTO `TSL` VALUES (4,1);
 
+-- ----------------------------
+-- Table structure for datas
+-- ----------------------------
+DROP TABLE IF EXISTS `datas`;
+CREATE TABLE `datas`  (
+  `did` int(11) NOT NULL COMMENT '数据源id',
+  `aid` int(11) NOT NULL COMMENT '属性id',
+  `arr_value` varchar(225) NOT NULL COMMENT '属性值',
+  `data_time` timestamp NOT NULL COMMENT '数据产生时间'
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of datas
+-- ----------------------------
+INSERT INTO `datas` VALUES (2,2,'10','2020-05-18 10:04:21');
+INSERT INTO `datas` VALUES (2,3,'0','2020-05-18 10:04:21');
+INSERT INTO `datas` VALUES (2,2,'30','2020-05-18 20:04:21');
+INSERT INTO `datas` VALUES (2,3,'1','2020-05-18 20:04:21');
+INSERT INTO `datas` VALUES (2,2,'100','2020-05-19 10:04:21');
+INSERT INTO `datas` VALUES (2,3,'2','2020-05-19 10:04:21');
+INSERT INTO `datas` VALUES (2,2,'130','2020-05-19 20:04:21');
+INSERT INTO `datas` VALUES (2,3,'0.5','2020-05-19 20:04:21');
+INSERT INTO `datas` VALUES (2,2,'150','2020-05-20 10:04:21');
+INSERT INTO `datas` VALUES (2,3,'1','2020-05-20 10:04:21');
+INSERT INTO `datas` VALUES (2,2,'30','2020-05-10 20:04:21');
+INSERT INTO `datas` VALUES (2,3,'0','2020-05-10 20:04:21');
+
 
 SET FOREIGN_KEY_CHECKS = 1;

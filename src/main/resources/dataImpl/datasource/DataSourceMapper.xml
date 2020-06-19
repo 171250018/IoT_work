@@ -10,6 +10,30 @@
         <result column="status" jdbcType="INTEGER" property="status"/>
     </resultMap>
 
+    <resultMap id="AttrSimple" type="com.seciii.oasis.vo.AttrSimpleVO">
+        <id column="aid" jdbcType="INTEGER" property="aid"/>
+        <result column="aname" jdbcType="VARCHAR" property="aname"/>
+    </resultMap>
+
+    <resultMap id="Data" type="com.seciii.oasis.po.Data">
+        <id column="did" jdbcType="INTEGER" property="did"/>
+        <result column="aid" jdbcType="INTEGER" property="aid"/>
+        <result column="arr_value" jdbcType="VARCHAR" property="value"/>
+        <result column="data_time" jdbcType="TIMESTAMP" property="dataTime"/>
+    </resultMap>
+
+    <resultMap id="Attr" type="com.seciii.oasis.po.Attr">
+        <id column="aid" jdbcType="INTEGER" property="aid"/>
+        <result column="func_type" jdbcType="INTEGER" property="funcType"/>
+        <result column="aname" jdbcType="VARCHAR" property="aname"/>
+        <result column="identifier" jdbcType="VARCHAR" property="identifier"/>
+        <result column="data_type" jdbcType="VARCHAR" property="dataType"/>
+        <result column="range_type" jdbcType="INTEGER" property="rangeType"/>
+        <result column="data_len" jdbcType="INTEGER" property="dataLen"/>
+        <result column="lower_limit" jdbcType="INTEGER" property="lowerLimit"/>
+        <result column="high_limit" jdbcType="INTEGER" property="higherLimit"/>
+    </resultMap>
+
     <insert id="insertDataSource" keyColumn="did" keyProperty="did"
             parameterType="com.seciii.oasis.po.DataSource" useGeneratedKeys="true">
         insert into data_source (pid, storage_cycle, start_time, status)
@@ -49,5 +73,16 @@
         update data_source SET  status =1 WHERE TIMESTAMPDIFF(MONTH,DATE_FORMAT(start_time, '%Y-%m-%d %H:%i:%S'),DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%S'))>=storage_cycle and status=0;
     </update>
 
+    <select id="selectAttrSimple" resultMap="AttrSimple">
+        select aid,aname from attribute where aid in (select aid from tsl where pid in (select pid from data_source where did=#{did} and status=0));
+    </select>
+
+    <select id="selectDatasByTime" resultMap="DataSource">
+        select * from datas where did=#{did} and aid=#{aid} and data_time between #{start} and #{end}
+    </select>
+
+    <select id="selectAttrById" resultMap="Attr">
+        select * from attribute where aid=#{aid}
+    </select>
 
 </mapper>

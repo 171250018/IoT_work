@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="/css/movieList.css"/>
     <link rel="stylesheet" type="text/css" href="/css/userMovie.css"/>
     <link rel="stylesheet" type="text/css" href="/css/chart.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/userList.css"/>
     <!-- Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
     <!-- font-asesome图标库 -->
@@ -20,13 +21,158 @@
     <script src="/js/request.js"></script>
     <script src="/js/index.js"></script>
     <script src="/js/timeChange.js"></script>
+
+    <!--引入jqplot-->
+    <link rel="stylesheet" type="text/css" href="/js/dist/jquery.jqplot.min.css"/>
+    <style type="text/css">
+            .chart-title{
+                background-color: #999999;
+                margin-bottom: 10px;
+                line-height: 30px;
+                padding-left: 10px;
+                background-color: #efefef;
+                border-bottom:1px solid #dddddd;
+                font-weight: bold;
+            }
+
+            #chart1{
+                border: 1px solid #dddddd;
+            }
+        </style>
+    <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="/js/dist/excanvas.js"></script><![endif]-->
+    <script src="http://libs.baidu.com/jquery/1.8.2/jquery.min.js"></script>
+    <script src="/js/dist/jquery.jqplot.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/dist/plugins/jqplot.canvasTextRenderer.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/dist/plugins/jqplot.canvasAxisLabelRenderer.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/dist/plugins/jqplot.cursor.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/dist/plugins/jqplot.highlighter.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+            $(function(){
+                var did = parseInt(window.location.href.split('?')[1].split('&')[0].split('=')[1]);
+                var pname=window.location.href.split('?')[1].split('&')[1].split('=')[1];
+
+                //取值
+                 function getDataSourceList(page) {
+                    getRequest(
+                        '/dataSource/getAllDataSource?page='+page,
+                        function (res) {
+                            renderDataSourceList(res.content);
+                        },
+                        function (error) {
+                            alert(error);
+                        });
+                }
+
+                $("#next-page-btn").click(function () {
+                    page=page+1;
+                    if(searchcont!=''||searchtime!=0){
+                        getSearchList(searchcont,searchtime,page);
+                    }
+                    else{
+                        getDataSourceList(page);
+                    }
+                });
+
+                /**
+                 * 第一个参数为body中div的id值
+                 * 第二个参数为要绘制的线形图中各拐点的取值
+                 * */
+                var data = [
+                            [38, 3, 9, 8, 49, 27, 14, 46, 32, 4,
+                             12, 6, 47, 15, 24, 39, 16, 48, 5, 6,
+                             6, 43, 42, 2, 29, 37, 21, 28, 40, 17, 3],
+                            [45, 24, 24, 29, 3, 19, 32, 45, 41, 8,
+                             34, 17, 1, 45, 37, 47, 34, 30, 31, 10,
+                             29, 17, 5, 23, 41, 49, 25, 34, 4, 13, 49],
+                            [43, 23, 37, 12, 26, 11, 29, 29, 22, 27,
+                             25, 5, 18, 34, 20, 3, 8, 16, 41, 19,
+                             9, 5, 16, 30, 13, 44, 22, 29, 5, 23, 13]
+                            ];
+
+                var plot = $.jqplot('chart1', data, {
+                    title:{         // 标题属性
+                        text:'<div class="chart-title">时序透视图<div>',           // 标题文本
+                        show:true,              // 是否阴影
+                        fontFamily:'微软雅黑',  // 标题字体
+                        fontSize:14,            // 标题字体大小
+                        textAlign:'left',       // 标题对齐方式
+                        textColor:'#515151',    // 标题颜色（也可以写作属性color）
+                        escapeHtml:false        // 是否转义HTML字符，值为false时，可以在text属性中使用HTML代码
+                    },
+                    axesDefaults:{  // 默认坐标轴属性
+                        min:0,
+                        tickOptions:{
+                            showMark:false
+                        }
+                    },
+                    axes:{          // 具体坐标轴属性
+                        xaxis:{
+                            label:'日期',
+                            ticks:[
+                            [1,'05/01'],
+                            [5,'05/05'],
+                            [10,'05/10'],
+                            [15,'05/15'],
+                            [20,'05/20'],
+                            [25,'05/25'],
+                            [30,'05/30']
+                            ]
+                        },
+                        yaxis: {
+                            label: '属性值'
+                        }
+                    },
+                    legend:{        // 图例属性
+                        show:true
+                    },
+                    grid:{          // 背景网格属性
+                        borderWidth:1,
+                        shadow:false
+                    },
+                    seriesDefaults:{// 默认数据序列属性
+                        lineWidth:1,
+                        markerOptions:{
+                            show:true
+                        }
+                    },
+                    series:[        // 具体数据序列属性
+                        {
+                            color:'#FF6666',
+                            label:'CPC'
+                        },{
+                            color:'#0066CC',
+                            label:'CPT'
+                        },{
+                            color:'#99CC66',
+                            label:'CPM'
+                        }
+                    ],
+                    highlighter:{
+                        show:true,
+                        tooltipAxes:'y',
+                        useAxesFormatters:false,
+                        tooltipFormatString:'投放量：%d'
+                    }
+                });
+            });
+        </script>
 </head>
 
 
 <body>
 <div class="main-container">
+    <div class="nav-left-container1">
+        <div class="nav-user-container" style="margin-bottom: 35px;">
+            <p class="title" id="left-title">数据分析</p>
+        </div>
+
+        <ul class="nav nav-pills nav-stacked" id="attr-list">
+            <li class="active"><div>attr1<input type="checkbox" name="attribute" class="check-what" value="1" /></div></li>
+            <li class="active"><div>attr2<input type="checkbox" name="attribute" class="check-what" value="2" /></div></li>
+        </ul>
+    </div>
     <div class="content-container">
-        <div class="show-box">
+        <div class="show-box1">
             <!--标题-->
             <div class="content-header">
                 <div class="title gray-text" id="big-title">数据源</div>
@@ -38,77 +184,17 @@
                     <p style="font-size:13px">可以选择产品属性和时间，观察该属性值的动态变化</p>
                 </div>
             </div>
-
-            <!--按钮/筛选/搜索-->
-            <div class="func-data">
-                <div class="sec-choose">
-                    <select class="selection" id="sec-attr">
-                        <option value="0">全部属性</option>
-                        <option value="3">3个月</option>
-                        <option value="6">6个月</option>
-                        <option value="12">1年</option>
-                        <option value="36">3年</option>
-                        <option value="60">5年</option>
-                        <option value="120">10年</option>
-                        <option value="1024">永久（102年）</option>
-                    </select>
-                </div>
-                <div class="sec-choose">
-                    <select class="selection" id="time-start">
-                        <option value="0">起始时间</option>
-                        <option value="3">3个月</option>
-                        <option value="6">6个月</option>
-                        <option value="12">1年</option>
-                        <option value="36">3年</option>
-                        <option value="60">5年</option>
-                        <option value="120">10年</option>
-                        <option value="1024">永久（102年）</option>
-                    </select>
-                </div>
-                <div class="sec-choose">
-                    <select class="selection" id="time-end">
-                        <option value="0">截止时间</option>
-                        <option value="3">3个月</option>
-                        <option value="6">6个月</option>
-                        <option value="12">1年</option>
-                        <option value="36">3年</option>
-                        <option value="60">5年</option>
-                        <option value="120">10年</option>
-                        <option value="1024">永久（102年）</option>
-                    </select>
-                </div>
+            <!--时间-->
+            <div class="form-group form-second">
+                <label class="start-label" for="start"><span class="error-text">*</span>时间范围</label>
+                <input class="checktime" type="date" name="user_date" id="start"/>
+                <div style="float:left; margin-left:25px; font-size:20px">--------</div>
+                <input class="checktime" type="date" name="user_date" id="end"/>
+                <button type="button" class="btn btn-primary" id="time-check-btn">查看</button>
             </div>
-
             <!--图表-->
-            <div class="for-chart">
-                <canvas id="mc" class="chart" width="500" height="400" style="border:1px solid black"></canvas>
-                <script type="text/javascript">
-                    var canvas=document.getElementById('mc');
-                    var ctx=canvas.getContext('2d');
-                    ctx.beginPath();
-
-                    //坐标轴
-                    ctx.moveTo(30,20);
-                    ctx.lineWidth="1";
-                    ctx.lineTo(30,380);
-                    ctx.lineTo(400,380);
-                    //ctx.closePath();
-
-                    //横线
-                    ctx.strokeStyle="#999";
-                    for(var i=0;i<7;i++){
-                        ctx.moveTo(30,30+50*i);
-                        ctx.lineTo(400,30+50*i);
-                    }
-
-                    //折线
-                    ctx.moveTo(100,300);
-                    ctx.lineTo(200,200);
-                    ctx.lineTo(280,280);
-                    ctx.lineTo(380,30);
-                    ctx.stroke();
-                </script>
-            </div>
+            <!-- 用于绘制图表，id在JS代码中会用到 -->
+            <div id="chart1" style="width:860px;height:400px;"></div>
         </div>
     </div>
 </div>

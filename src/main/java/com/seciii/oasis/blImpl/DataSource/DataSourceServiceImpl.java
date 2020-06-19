@@ -132,6 +132,38 @@ public class DataSourceServiceImpl implements DataSourceService {
         }
         return ResponseVO.buildSuccess(res);
     }
+    @Override
+    public ResponseVO getAttrList(int did){
+        List<AttrSimpleVO> attrSimpleVOList=dataSourceMapper.selectAttrSimple(did);
+        if(attrSimpleVOList==null||attrSimpleVOList.size()==0){
+            return ResponseVO.buildFailure("数据源无效");
+        }
+        return ResponseVO.buildSuccess(attrSimpleVOList);
+    }
+
+    @Override
+    public ResponseVO getDatasByTime(SearchDatasForm searchDatasForm){
+        List<Integer> aids=searchDatasForm.getAttrlist();
+        int did=searchDatasForm.getDataId();
+        Date start=searchDatasForm.getStart();
+        Date end=searchDatasForm.getEnd();
+        List<AttrDataVO> attrDataVOList=new ArrayList<AttrDataVO>();
+        for(int aid:aids){
+            List<Data> dataList=dataSourceMapper.selectDatasByTime(did,aid,start,end);
+            Attr a=dataSourceMapper.selectAttrById(aid);
+            AttrDataVO aVO=a.getVO();
+            aVO.setValues(dataList);
+            attrDataVOList.add(aVO);
+        }
+        AllDataVO allDataVO=new AllDataVO();
+        allDataVO.setDid(did);
+
+        Product p=productMapper.getProductByDId(did);
+        allDataVO.setPid(p.getPid());
+        allDataVO.setPname(p.getPname());
+        allDataVO.setAttrDataVOList(attrDataVOList);
+        return ResponseVO.buildSuccess(allDataVO);
+    }
 
     private DataSourceVO DataSource2VO(DataSource dataSource){
         DataSourceVO dataSourceVO=new DataSourceVO();

@@ -21,6 +21,10 @@
         select * from product where pid=#{pid}
     </select>
 
+    <select id="getProductByDId" resultMap="Product">
+        select * from product where pid in (select pid from data_source where did=#{did})
+    </select>
+
     <select id="getUnUsedProduct" resultMap="ProductSimple">
         select pid,pname from product where pid not in (select pid from data_source where status=0)
     </select>
