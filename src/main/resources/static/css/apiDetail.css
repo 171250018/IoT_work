@@ -1,0 +1,43 @@
+.apiLink{
+    margin-left: 25px;
+    margin-top: 10px;
+}
+
+.small-title{
+    float: left;
+    font-weight: 600;
+}
+
+.link-content{
+    float: left;
+    margin-left:25px;
+}
+
+.apiDescript{
+    float: left;
+    margin-left:25px;
+    width: 100%;
+}
+
+.description-content{
+    width: 100%;
+    margin-left: 75px;
+}
+
+.heng1{
+    margin-top: 75px;
+}
+
+.left{
+    float: left;
+}
+
+.right{
+    margin-left: 85px;
+}
+
+.show-box2{
+    background: #fafafa;
+    height: 250%;
+}
+

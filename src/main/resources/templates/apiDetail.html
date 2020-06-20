@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/css/chart.css"/>
     <link rel="stylesheet" type="text/css" href="/css/userList.css"/>
     <link rel="stylesheet" type="text/css" href="/css/dataSaw.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/apiDetail.css"/>
     <!-- Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
     <!-- font-asesome图标库 -->
@@ -28,50 +29,143 @@
 </head>
 <body>
 <div class="main-container">
-    <div class="nav-left-container1">
-        <div class="nav-user-container" style="margin-bottom: 35px;">
-            <p class="title" id="left-title">数据分析</p>
-        </div>
-
-        <ul class="nav nav-pills nav-stacked" id="attr-list">
-            <li class="active"><div>attr1<input type="checkbox" name="attribute" class="check-what" value="1" /></div></li>
-            <li class="active"><div>attr2<input type="checkbox" name="attribute" class="check-what" value="2" /></div></li>
-        </ul>
-        <button type="button" class="btn btn-primary saw-btn" id="saw-check-btn">选择</button>
-    </div>
     <div class="content-container">
-        <div class="show-box1">
+        <div class="show-box2">
             <!--标题-->
             <div class="content-header">
                 <div class="title gray-text" id="big-title">数据源</div>
             </div>
-            <!--备注-->
-            <div style="padding: 20px;">
-                <div class="remark">
-                    <p style="font-size:15px">可视化分析说明</p>
-                    <p style="font-size:13px">可以选择产品属性，并对数据进行一些简单的筛选操作</p>
+            <div class="apiLink">
+                <div class="small-title">AriSrn: </div>
+                <div class="link-content" id="api-link">数据源</div>
+            </div>
+            <div class="apiDescript">
+                <div class="small-title">描述: </div>
+                <div class="description-content" id="api-descript">数据源</div>
+            </div>
+            <div class="heng1">
+                <hr/>
+            </div>
+
+            <div style="margin-left: 25px; margin-bottom:-30px;">
+                <div style="font-weight: 600">基本信息</div>
+                <div>
+                    <div class="left">ID</div>
+                    <div class="right" id="ID"></div>
+                </div>
+                <div>
+                    <div class="left">接口类型</div>
+                    <div class="right" id="api-type"></div>
+                </div>
+                <div>
+                    <div class="left">创建时间</div>
+                    <div class="right" id="start-time"></div>
+                </div>
+                <div>
+                    <div class="left">描述</div>
+                    <div class="right" id="description"></div>
                 </div>
             </div>
+
+            <div class="heng1">
+                <hr/>
+            </div>
+
+            <div style="margin-left: 25px; margin-bottom:-30px;">
+                <div style="font-weight: 600">HTTP接口信息</div>
+                <div>
+                    <div class="left">ApiSrn</div>
+                    <div class="right" id="api-srn"></div>
+                </div>
+                <div>
+                    <div class="left">请求方式</div>
+                    <div class="right" id="request-type"></div>
+                </div>
+                <div>
+                    <div class="left">返回类型</div>
+                    <div class="right" id="return-type"></div>
+                </div>
+            </div>
+
+            <div class="heng1">
+                <hr/>
+            </div>
+
+
             <!-- 表单 -->
-            <div class="data-form">
-                <div class="card">
-                    <div class="table-wrapper">
-                        <table id="data-saw-list" class="table table-setting">
-                            <thead class="table-head">
-                            <tr>
-                                <th>产品名称</th>
-                                <th>存储周期</th>
-                                <th>创建时间</th>
-                                <th>操作</th>
-                            </tr>
-                            </thead>
-                            <tbody id="data-source-list">
-                            </tbody>
-                        </table>
-                        <button  id="next-page-btn" type="button" class="btn btn-primary next-page" data-backdrop="static" data-toggle="modal" data-target="#sawModal" >筛选</button>
-                    </div>
+            <div style="margin-left: 25px; margin-bottom:-30px;">
+                <div style="font-weight: 600">请求参数</div>
+                <table class="table table-setting">
+                    <thead class="table-head">
+                    <tr>
+                        <th>参数名称</th>
+                        <th>类型</th>
+                        <th>示例值</th>
+                        <th>是否必选</th>
+                        <th>描述</th>
+                    </tr>
+                    </thead>
+                    <tbody id="request-list">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="heng1">
+                <hr/>
+            </div>
+
+            <div style="margin-left: 25px; margin-bottom:-30px;">
+                <div style="font-weight: 600">返回参数</div>
+                <table class="table table-setting">
+                    <thead class="table-head">
+                    <tr>
+                        <th>参数名称</th>
+                        <th>类型</th>
+                        <th>示例值</th>
+                        <th>是否必选</th>
+                        <th>描述</th>
+                    </tr>
+                    </thead>
+                    <tbody id="return-list">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="heng1">
+                <hr/>
+            </div>
+
+            <!--例子-->
+            <div style="margin-left: 25px; margin-bottom:-30px;">
+                <div style="font-weight: 600">正常返回示例</div>
+                <div id="right-example">
+                    example
                 </div>
             </div>
+
+            <div class="heng1">
+                <hr/>
+            </div>
+
+            <div style="margin-left: 25px; margin-bottom:-30px;">
+                <div style="font-weight: 600">错误码定义</div>
+                <table class="table table-setting">
+                    <thead class="table-head">
+                    <tr>
+                        <th>错误码</th>
+                        <th>错误信息（英文）</th>
+                        <th>错误信息（中文）</th>
+                    </tr>
+                    </thead>
+                    <tbody id="error-list">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="heng1">
+                <hr/>
+            </div>
+
         </div>
     </div>
 </div>

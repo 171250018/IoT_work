@@ -3,31 +3,99 @@ var name;
 
 $(document).ready(function () {
     apiId = parseInt(window.location.href.split('?')[1].split('&')[0].split('=')[1]);
-    name=window.location.href.split('?')[1].split('&')[1].split('=')[1];
-    alert(apiId);
-    alert(name);
     var attrNum=0;
     var labels=['','','','',''];
     var selectAids=[];
     var simpleAidAndName;
     var result;
 
-    $("#big-title").text(name+"--可视化分析");
-    $("#left-title").text(name+"属性");
-
-    //getAttrList();
-    function getAttrList() {
+    getApiDetail();
+    function getApiDetail() {
             getRequest(
-                '/dataSource/getAttrList?did='+did,
+                '/api/apiDetail?apiId='+apiId,
                 function (res) {
-                    simpleAidAndName=res.content;
-                    renderAttrList(res.content);
+                    name=res.content.apiInfo.name;
+                    renderApiDetail(res.content);
                 },
                 function (error) {
                     alert(error);
                 });
         }
-    function renderAttrList(list) {
+
+    function renderApiDetail(detail){
+        $("#big-title").text(name+"--详情");
+        $("#api-link").text(detail.apiInfo.apiSrn);
+        $("#api-descript").text(detail.apiInfo.description);
+        $("#ID").text(detail.apiInfo.apiId);
+        $("#api-type").text(detail.apiInfo.apiType);
+        $("#start-time").text(detail.apiInfo.startTime);
+        $("#description").text(detail.apiInfo.description);
+        $("#api-srn").text(detail.apiInfo.apiSrn);
+        $("#request-type").text(detail.apiInfo.requestType);
+        $("#return-type").text(detail.apiInfo.returnType);
+
+        $('#request-list').empty();
+        var requestList=detail.requestList;
+        requestStr='';
+        requestList.forEach(function(log){
+            requestStr +=
+                 "<tr data-datasource="+JSON.stringify(log)+">"
+                 +"<th>"+log.name+"</th>"
+                 +"<th>"+log.dataType+"</th>"
+                 +"<th>"+log.example+"</th>";
+            if(log.isNess==1){
+                requestStr+="<th>是</th>"
+            }
+            else{
+                requestStr+="<th>否</th>"
+            }
+            requestStr+="<th>"+log.description+"</th>"+"</tr>";
+        });
+        $('#request-list').html(requestStr);
+
+        $('#return-list').empty();
+        var returnList=detail.returnList;
+        returnStr='';
+        returnList.forEach(function(log){
+            returnStr +=
+                 "<tr data-datasource="+JSON.stringify(log)+">"
+                 +"<th>"+log.name+"</th>"
+                 +"<th>"+log.dataType+"</th>"
+                 +"<th>"+log.example+"</th>";
+            if(log.isNess==1){
+                returnStr+="<th>是</th>"
+            }
+            else{
+                returnStr+="<th>否</th>"
+            }
+            returnStr+="<th>"+log.description+"</th>"+"</tr>";
+        });
+        $('#return-list').html(returnStr);
+
+        var rightExampleStr='{';
+        var i=0;
+        returnList.forEach(function(log){
+            if(i!=0){
+                rightExampleStr+=',';
+            }
+            rightExampleStr+='"'+log.name+'":"'+log.example+'"';
+            i++;
+        });
+        rightExampleStr+='}';
+        $("#right-example").text(rightExampleStr);
+
+        $('#error-list').empty();
+        errorStr='';
+        errorStr+="<tr ><th>"+"500"+"</th>"+"<th>"+"server error."+"</th>"+"<th>"+"服务端错误"+"</th></tr>";
+        errorStr+="<tr ><th>"+"29500"+"</th>"+"<th>"+"database select unknown error."+"</th>"+"<th>"+"数据库查询未知错误"+"</th></tr>";
+        errorStr+="<tr ><th>"+"29597"+"</th>"+"<th>"+"no authorization use system table"+"</th>"+"<th>"+"无权使用系统表"+"</th></tr>";
+        errorStr+="<tr ><th>"+"29583"+"</th>"+"<th>"+"invalid pattern sql，no pass db permission check!"+"</th>"+"<th>"+"无效的模板的sql,没有通过数据库权限校验"+"</th></tr>";
+        errorStr+="<tr ><th>"+"29540"+"</th>"+"<th>"+"Engine Layer Error."+"</th>"+"<th>"+"引擎层异常。"+"</th></tr>";
+        $('#error-list').html(errorStr);
+    }
+
+
+    function renderApiDetailIf(detail) {
             $('#attr-list').empty();
             //var dataSourceStr='';
             attrNum=list.length;
