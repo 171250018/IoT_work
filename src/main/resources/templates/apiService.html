@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>数据分析</title>
+    <title>API服务</title>
     <!-- 引入css样式文件 -->
     <link rel="stylesheet" type="text/css" href="/css/common.css"/>
     <link rel="stylesheet" type="text/css" href="/css/movieList.css"/>
@@ -19,7 +19,7 @@
     <!-- 引入js脚本文件 -->
     <script src="/js/request.js"></script>
     <script src="/js/index.js"></script>
-    <script src="/js/dataSourceList.js"></script>
+    <script src="/js/apiService.js"></script>
 </head>
 <body>
 <div class="main-container">
@@ -29,11 +29,11 @@
             <p class="title">数据分析</p>
         </div>
         <ul class="nav nav-pills nav-stacked">
-            <li role="presentation" class="active"><a href="#"><i class="icon-film"></i> 数据源</a></li>
+            <li role="presentation"><a href="/index"><i class="icon-film"></i> 数据源</a></li>
             <li role="presentation"><a href="/admin/session/manage"><i class="icon-calendar"></i> 分析透视</a></li>
             <li role="presentation"><a href="/admin/promotion/manage"><i class="icon-gift"></i> 时序透视</a></li>
             <li role="presentation"><a href="/admin/cinema/manage"><i class="icon-cogs"></i> 可视化分析</a></li>
-            <li role="presentation"><a href="/api/service"><i class="icon-bar-chart"></i> API服务</a></li>
+            <li role="presentation" class="active"><a href="#"><i class="icon-bar-chart"></i> API服务</a></li>
             <li role="presentation"><a href="/admin/memberManage"><i class="icon-beer"></i> 会员卡管理</a></li>
             <li role="presentation"><a href="/admin/refundManage"><i class="icon-gift"></i> 退票管理</a></li>
         </ul>
@@ -42,16 +42,10 @@
         <div class="show-box">
             <!--标题-->
             <div class="content-header">
-                <div class="title gray-text">数据源</div>
-            </div>
-            <!--备注-->
-            <div style="padding: 20px;">
-                <div class="remark">
-                    <p style="font-size:15px">数据存储时间说明</p>
-                    <p style="font-size:13px">物联网平台可为每个产品提供一个月以上的存储周期</p>
-                </div>
+                <div class="title gray-text">API服务列表</div>
             </div>
             <!--按钮/筛选/搜索-->
+            <!--
             <div class="func-data">
                 <div class="data-btn">
                     <button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#datasourceModal"><i class="icon-plus-sign"></i> 添加设备数据源</button>
@@ -76,6 +70,8 @@
                 </div>
             </div>
 
+            -->
+
             <!--表单-->
 
             <div class="data-form">
@@ -84,13 +80,15 @@
                         <table class="table table-setting">
                             <thead class="table-head">
                             <tr>
-                                <th>产品名称</th>
-                                <th>存储周期</th>
+                                <th>ID</th>
+                                <th>名称</th>
+                                <th>类型</th>
+                                <th>调用量</th>
                                 <th>创建时间</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
-                            <tbody id="data-source-list">
+                            <tbody id="api-list">
                             </tbody>
                         </table>
                         <button  id="last-page-btn" type="button" class="btn btn-primary last-page" data-backdrop="static" data-toggle="modal" data-target="#movieModal" >上一页</button>

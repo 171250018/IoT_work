@@ -25,6 +25,16 @@ public class ViewController {
         return "datasourceSaw";
     }
 
+    @RequestMapping(value = "/api/service")
+    public String getApiService() {
+        return "apiService";
+    }
+
+    @RequestMapping(value = "/api/detail")
+    public String getApiDetail() {
+        return "apiDetail";
+    }
+
     @RequestMapping(value = "/signUp")
     public String getSignUp() {
         return "signUp";

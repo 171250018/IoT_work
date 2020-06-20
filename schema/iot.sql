@@ -160,5 +160,92 @@ INSERT INTO `datas` VALUES (2,3,'1','2020-05-20 10:04:21');
 INSERT INTO `datas` VALUES (2,2,'30','2020-05-10 20:04:21');
 INSERT INTO `datas` VALUES (2,3,'0','2020-05-10 20:04:21');
 
+-- ----------------------------
+-- Table structure for api
+-- ----------------------------
+DROP TABLE IF EXISTS `api`;
+CREATE TABLE `api`  (
+  `api_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '属性id',
+  `name` varchar(225) NOT NULL DEFAULT 0 COMMENT '功能类型，默认0是属性，1是事件，2是服务',
+  `api_type` varchar(225) NOT NULL COMMENT '类型',
+  `reference` int(11) NOT NULL COMMENT '调用次数',
+  `start_time` timestamp NOT NULL COMMENT '创建时间',
+  `description` varchar(225) NOT NULL COMMENT '描述',
+  `api_srn` varchar(225) NOT NULL COMMENT '地址',
+  `request_type` varchar(225) NOT NULL COMMENT '请求方式',
+  `return_type` varchar(225) NOT NULL COMMENT '返回类型',
+  PRIMARY KEY (`api_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+INSERT INTO `api` VALUES (10595,'设备数离线指标查询API','基础服务API','7094','2020-05-18 10:04:21','获取用户多天的产品总数，月激活设备数，日激活设备数，日新增设备数，最多查询30天的数据','acs:iot:*:f16a1ae1a8707cdc4ed67a217e40868b:serveapi/queryDeviceOfflineCalParm','POST','JSON');
+
+-- ----------------------------
+-- Table structure for data_parameter
+-- ----------------------------
+DROP TABLE IF EXISTS `data_parameter`;
+CREATE TABLE `data_parameter`  (
+  `dpid` int(11) NOT NULL AUTO_INCREMENT COMMENT '参数id',
+  `name` varchar(225) NOT NULL COMMENT '参数名称',
+  `data_type` varchar(225) NOT NULL DEFAULT 'VARCHAR' COMMENT '类型',
+  `example` varchar(225) NOT NULL COMMENT '示例值',
+  `is_ness` int(3) NOT NULL DEFAULT 1 COMMENT '是否必选，默认1是必选，0是不必选',
+  `description` varchar(225) NOT NULL COMMENT '描述',
+  PRIMARY KEY (`dpid`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of data_parameter
+-- ----------------------------
+INSERT INTO `data_parameter` VALUES (1,'endDate','VARCHAR','20200110',1,'查询的结束日期');
+INSERT INTO `data_parameter` VALUES (2,'startDate','VARCHAR','20200101',1,'查询的开始日期');
+
+INSERT INTO `data_parameter` VALUES (3,'statDate','VARCHAR','20200110',0,'统计日期');
+INSERT INTO `data_parameter` VALUES (4,'productCnt','VARCHAR','15',0,'产品数');
+INSERT INTO `data_parameter` VALUES (5,'deviceMonthlyActiveCnt','VARCHAR','15',0,'月激活设备数');
+INSERT INTO `data_parameter` VALUES (6,'deleteDailyActiveCnt','VARCHAR','15',0,'日激活设备数');
+INSERT INTO `data_parameter` VALUES (7,'deviceDailyCnt','VARCHAR','15',0,'日新增设备数');
+
+
+-- ----------------------------
+-- Table structure for request_link
+-- ----------------------------
+DROP TABLE IF EXISTS `request_link`;
+CREATE TABLE `request_link`  (
+  `api_id` int(11) NOT NULL COMMENT 'api模型id',
+  `dpid` int(11) NOT NULL COMMENT '参数id',
+  PRIMARY KEY (`api_id`, `dpid`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of request_link
+-- ----------------------------
+INSERT INTO `request_link` VALUES (10595,1);
+INSERT INTO `request_link` VALUES (10595,2);
+
+-- ----------------------------
+-- Table structure for return_link
+-- ----------------------------
+DROP TABLE IF EXISTS `return_link`;
+CREATE TABLE `return_link`  (
+  `api_id` int(11) NOT NULL COMMENT 'api模型id',
+  `dpid` int(11) NOT NULL COMMENT '参数id',
+  PRIMARY KEY (`api_id`, `dpid`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of request_link
+-- ----------------------------
+INSERT INTO `return_link` VALUES (10595,3);
+INSERT INTO `return_link` VALUES (10595,4);
+INSERT INTO `return_link` VALUES (10595,5);
+INSERT INTO `return_link` VALUES (10595,6);
+INSERT INTO `return_link` VALUES (10595,7);
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+
+
+
+
+
+
