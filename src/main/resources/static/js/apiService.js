@@ -30,7 +30,7 @@ $(document).ready(function () {
                  +"<th>"+log.apiType+"</th>"
                  +"<th>"+log.reference+"</th>"
                  +"<th>"+log.startTime+"</th>"
-                 +"<th>"+"<a class='link-func' id='time-act' href='/datasource/time?did="+log.did+"&pname="+log.pname+"'>创建连接</a>"+"</th></tr>";
+                 +"<th>"+"<a class='link-func' id='time-act' href='/api/connect?apiId="+log.apiId+"'>创建连接</a>"+"</th></tr>";
         });
         $('#api-list').html(apiStr);
     }

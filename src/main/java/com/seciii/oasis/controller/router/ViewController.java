@@ -35,6 +35,11 @@ public class ViewController {
         return "apiDetail";
     }
 
+    @RequestMapping(value = "/api/connect")
+    public String getApiConnect() {
+        return "apiConnect";
+    }
+
     @RequestMapping(value = "/signUp")
     public String getSignUp() {
         return "signUp";
